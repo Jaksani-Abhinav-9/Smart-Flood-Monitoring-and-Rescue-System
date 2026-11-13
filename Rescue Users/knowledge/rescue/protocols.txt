@@ -1,0 +1,30 @@
+==============================================================================
+FLOOD RESCUE SYSTEM - RESCUE OPERATIONS & DISPATCH PROTOCOLS
+Standard Operating Procedures (SOP) for Incident Triage, Staging & Coordination
+==============================================================================
+
+1. SOS INCIDENT LIFECYCLE & DISPATCH PHASES
+Every emergency distress alert registered through the FloodGuard platform follows a four-stage operational lifecycle:
+- Phase 1 (Alert Ingestion): The SOS signal is received via Firebase Realtime Database with user coordinates, timestamp, and battery level. Automated telemetry maps the incident to the appropriate district grid cell (Kamareddy Municipal or rural cluster).
+- Phase 2 (Triage & Assignment): Incident Commander evaluates severity and assigns a tactical priority (RED = Imminent Hazard, YELLOW = Vulnerable/Rising Water, GREEN = Sheltered/Stable). Incidents are dispatched to the closest active Rescue Unit or SDRF motorboat.
+- Phase 3 (En-Route & Extraction): Rescue Unit marks status as 'IN_PROGRESS' on their terminal. Real-time routing guides boat teams around known impassable roads, collapsed culverts, and high-voltage grid hazards.
+- Phase 4 (Evacuation & Resolution): Victims are extracted and transported to the designated safe staging ground or relief camp. The incident status is updated to 'RESOLVED' and medical handover is completed.
+
+2. STAGING GROUND & BOAT LAUNCH PROTOCOLS
+Rescue teams stage inflatable rescue boats (IRBs) and aluminum flat-bottom boats at pre-designated elevated boat ramps and dry highway intersections above the 100-year flood line. Prior to boat launch:
+- All crew members must be equipped with Type V rescue personal flotation devices (PFDs), water rescue helmets, throw ropes, and waterproof handheld VHF transceivers.
+- Propellers must be fitted with protective stainless steel prop-guards to prevent propeller strike injuries to submerged victims and to protect engines against floating debris and submerged plastic waste.
+- Each boat crew maintains a designated Spotter/Navigator whose sole responsibility is watching for submerged electrical cables, floating trees, fence posts, and open drain vortexes.
+
+3. RESCUE PRIORITY CLASSIFICATION (TRIAGE MATRIX)
+- Category RED (Code 1 - Immediate Life Danger): Victims stranded in tree canopies, rooftops with water less than 1 foot below the roofline, sinking or submerged vehicles with occupants inside, collapsed or unstable structural masonry, active medical emergencies (cardiac, massive hemorrhage, severe hypothermia, acute respiratory failure). Dispatch ETA target: < 20 minutes.
+- Category YELLOW (Code 2 - Urgent / Vulnerable): Families with infants, bedridden seniors, or pregnant individuals trapped on safe second floors or solid reinforced concrete slabs where water is high but not actively rising into the room. Dispatch ETA target: < 45-60 minutes.
+- Category GREEN (Code 3 - Stable Shelter): Healthy adults on secure multi-story buildings with dry space, functioning mobile communications, and sufficient water. Extraction occurs systematically during scheduled sweep operations.
+
+4. COORDINATION WITH NDRF, SDRF & DISTRICT AUTHORITIES
+The local FloodGuard system integrates tactical communications with:
+- District Emergency Operations Centre (DEOC - 1077) under the District Collector & Magistrate.
+- National Disaster Response Force (NDRF) Battalion Command (10th Battalion regional hub / 24x7 control room 011-23438084).
+- State Disaster Response Force (SDRF) rapid deployment units.
+- 108 GVK EMRI Disaster Ambulance Command for mass casualty triage at designated relief assembly points.
+Air-drop operations (IAF helicopters) are coordinated through DEOC when floodwaters exceed boat navigation velocity (> 15 knots / 7.7 m/s) or when entire road networks are obliterated.

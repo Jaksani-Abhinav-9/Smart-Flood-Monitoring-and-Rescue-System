@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🚑 Active SOS Triage | Smart Flood Monitoring and Rescue System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../assets/Flood Rescue Monitoring Emblem.png">
+
+  <!-- Shared premium styles -->
+  <link rel="stylesheet" href="../css/home.css" />
+
+  <!-- Firebase Legacy SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+  <style>
+    body {
+      overflow: auto;
+      background: radial-gradient(60% 50% at 15% 8%, rgba(34, 211, 238, 0.10) 0%, transparent 60%),
+                  radial-gradient(50% 45% at 90% 12%, rgba(59, 130, 246, 0.12) 0%, transparent 65%),
+                  var(--bg);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .table-card {
+      padding: 24px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(17, 28, 48, 0.92), rgba(11, 18, 33, 0.86));
+      border: 1px solid rgba(94, 234, 212, 0.16);
+      box-shadow: 0 24px 60px rgba(2, 6, 16, 0.38);
+    }
+
+    /* Style options dropdown natively */
+    select option {
+      background: #0d1626;
+      color: #fff;
+    }
+
+    /* SOS Cards & Details styling */
+    .sos-card {
+      padding: 20px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      transition: all 0.25s ease;
+      color: var(--text);
+      text-align: left;
+    }
+    
+    .sos-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Left border color based on priority */
+    .sos-card.high { border-left: 6px solid var(--danger); }
+    .sos-card.medium { border-left: 6px solid var(--warning); }
+    .sos-card.low { border-left: 6px solid var(--success); }
+
+    .sos-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .sos-details div {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .sos-details span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .sos-details strong {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .card-actions button {
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .card-actions button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    .active-btn {
+      background: linear-gradient(135deg, #f1c40f, #f39c12);
+      color: #0d1626;
+    }
+
+    .complete-btn {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: #fff;
+    }
+
+    .rescue-complete-yellow-btn {
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      color: #0b1329;
+      font-weight: 700;
+      border: 1px solid rgba(245, 158, 11, 0.6);
+      box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .rescue-complete-yellow-btn:hover {
+      background: linear-gradient(135deg, #fbbf24, #f59e0b);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+      transform: translateY(-2px);
+    }
+
+    .rescue-complete-yellow-btn.marked-complete {
+      background: linear-gradient(135deg, #10b981, #059669) !important;
+      color: #ffffff !important;
+      border-color: rgba(16, 185, 129, 0.6) !important;
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.4) !important;
+    }
+
+    .nav-btn {
+      background: linear-gradient(135deg, #ff5722, #e64a19);
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .profile-content {
+        padding-left: 24px !important;
+      }
+    }
+
+    /* Segmented Screen Switcher Tabs */
+    .sos-screen-tabs {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(13, 22, 38, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 6px;
+      gap: 6px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+      flex-wrap: wrap;
+    }
+
+    .screen-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.86rem;
+      cursor: pointer;
+      transition: all 0.22s ease;
+      user-select: none;
+    }
+
+    .screen-tab:hover {
+      background: rgba(255, 255, 255, 0.05);
+      color: #f1f5f9;
+    }
+
+    .screen-tab.active {
+      background: linear-gradient(135deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98));
+      color: #ffffff;
+      border: 1px solid rgba(56, 189, 248, 0.4);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 0 16px rgba(56, 189, 248, 0.15);
+    }
+
+    .screen-tab.active#tabLive {
+      border-color: rgba(239, 68, 68, 0.45);
+      box-shadow: 0 0 16px rgba(239, 68, 68, 0.18);
+    }
+
+    .screen-tab.active#tabCompleted {
+      border-color: rgba(16, 185, 129, 0.45);
+      box-shadow: 0 0 16px rgba(16, 185, 129, 0.18);
+    }
+
+    .tab-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .tab-dot.live {
+      background: #ef4444;
+      box-shadow: 0 0 8px #ef4444;
+      animation: pulse-ring-danger 2s infinite;
+    }
+
+    .tab-dot.completed {
+      width: 14px;
+      height: 14px;
+      background: #10b981;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+    }
+
+    .tab-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 22px;
+      height: 20px;
+      padding: 0 7px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .tab-badge.live {
+      background: rgba(239, 68, 68, 0.22);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .tab-badge.completed {
+      background: rgba(16, 185, 129, 0.22);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .tab-badge.all {
+      background: rgba(148, 163, 184, 0.18);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.3);
+    }
+
+    @keyframes pulse-ring-danger {
+      0% { box-shadow: 0 0 0 0 rgba(247, 85, 85, 0.45); }
+      70% { box-shadow: 0 0 0 9px rgba(247, 85, 85, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(247, 85, 85, 0); }
+    }
+
+    /* Status chips inside card */
+    .status-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 5px 14px;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      width: fit-content;
+      line-height: 1.2;
+    }
+    .status-chip.active {
+      background: rgba(245, 158, 11, 0.16);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+    .status-chip.pending {
+      background: rgba(239, 68, 68, 0.16);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+    }
+    .status-chip.completed {
+      background: rgba(16, 185, 129, 0.18);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    /* Floating Toast Notification */
+    #rescueToast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: linear-gradient(135deg, #111e33, #0b1324);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      color: #f8fafc;
+      padding: 13px 22px;
+      border-radius: 16px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 99999;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+    #rescueToast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+
+  <!-- TOP BAR -->
+  <section class="top-bar" aria-label="App status bar">
+    <div class="brand">
+      <img src="../assets/Flood Rescue Monitoring Emblem.png" alt="Rescue Logo" class="brand-logo" />
+      <span>Smart Flood Rescue Dashboard</span>
+    </div>
+    
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <div id="connectivityStatus" class="connectivity" aria-live="polite">
+        <span></span>
+        Online
+      </div>
+    </div>
+  </section>
+
+  <main class="map-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar-panel" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <h2>Quick Actions</h2>
+      </div>
+      <nav class="sidebar-list" aria-label="Primary navigation">
+        <button class="sidebar-btn" type="button" onclick="location.href='../profile/profile.html'">
+          <span class="icon"><img src="../assets/icons/profile.svg" alt="Profile" /></span>
+          <span>Profile</span>
+        </button>
+        <button class="sidebar-btn" type="button" onclick="openAI()">
+          <span class="icon"><img src="../assets/icons/ai.svg" alt="AI Suggestion" /></span>
+          <span>AI Suggestion</span>
+        </button>
+        <button class="sidebar-btn" type="button" onclick="location.href='../home.html'">
+          <span class="icon"><img src="../assets/icons/home.svg" alt="Home" /></span>
+          <span>Home</span>
+        </button>
+        <button class="sidebar-btn active" type="button" onclick="location.href='rescue.html'">
+          <span class="icon"><img src="../assets/icons/sos.svg" alt="CHECK SOS" /></span>
+          <span>CHECK SOS</span>
+        </button>
+        <button class="sidebar-btn" type="button" onclick="goToRescueAlerts()">
+          <span class="icon"><img src="../assets/icons/alerts.svg" alt="Alerts" /></span>
+          <span>Alerts</span>
+        </button>
+        <button class="sidebar-btn" type="button" onclick="location.href='../lora-data.html'">
+          <span class="icon"><img src="../assets/icons/live-data.svg" alt="Live Data" /></span>
+          <span>Live Data</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="profile-content" style="padding: 110px 24px 24px 280px; display: flex; flex-direction: column; align-items: center; width: 100%; overflow-y: auto;" aria-label="Rescue requests">
+      <div class="table-card" style="width: min(920px, 100%); margin-bottom: 24px;">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <button onclick="location.href='../home.html'" style="padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: var(--text); font-weight: 500; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s ease;">
+              ← Back
+            </button>
+            <h2 style="font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; color: #fff;">🚑 Active SOS Alerts</h2>
+          </div>
+          
+          <div style="display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
+            <!-- Use My Location Button -->
+            <button id="useLocationBtn" style="padding: 10px 18px; border-radius: 12px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: white; font-weight: 600; font-size: 0.85rem; border: none; cursor: pointer; transition: all 0.2s ease;">📍 Use My Location</button>
+
+            <select id="filterSelect" class="auth-input" style="padding: 10px 36px 10px 16px; border-radius: 12px; font-size: 0.85rem; width: auto; background-color: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: #fff;">
+              <option value="all">All Priorities</option>
+              <option value="high">High Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- 3 Interactive Screen Tabs: Live/Pending, Completed, All -->
+        <div class="sos-screen-tabs">
+          <button type="button" class="screen-tab active" id="tabLive" onclick="switchSOSTab('live')" title="Show Active & Pending Emergency Requests">
+            <span class="tab-dot live"></span>
+            <span class="tab-title">Live / Pending</span>
+            <span class="tab-badge live" id="tabLiveBadge">0</span>
+          </button>
+
+          <button type="button" class="screen-tab" id="tabCompleted" onclick="switchSOSTab('completed')" title="Show Completed Rescue Operations">
+            <span class="tab-dot completed">✓</span>
+            <span class="tab-title">Completed Rescues</span>
+            <span class="tab-badge completed" id="tabCompletedBadge">0</span>
+          </button>
+
+          <button type="button" class="screen-tab" id="tabAll" onclick="switchSOSTab('all')" title="Show All Requests">
+            <span class="tab-title">All SOS</span>
+            <span class="tab-badge all" id="tabAllBadge">0</span>
+          </button>
+        </div>
+
+        <div id="sosList" style="display: grid; gap: 16px; grid-template-columns: 1fr;">
+          <!-- SOS Cards populated dynamically by rescue.js -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="rescue.js"></script>
+
+<script>
+  window.goToRescueAlerts = function() {
+    window.location.href = "../alerts/rescue-alerts.html";
+  }
+
+  window.openAI = function() {
+    window.location.href = "../home.html";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+Project Flood Risk Algorithm (Confirmed from docs/backend/floodLogic.js):
+
+The deterministic flood simulation implemented in tools/flood-risk.ts is ported from the project's existing docs/backend/floodLogic.js.
+
+Algorithm overview:
+1. Find the lowest altitude grid in the GeoJSON grid dataset.
+2. Calculate a spread factor based on rainfall:
+   - rainfall < 30mm  => spreadFactor = 0.3
+   - rainfall < 70mm  => spreadFactor = 0.6
+   - rainfall >= 70mm => spreadFactor = 1.0
+3. Simulate water propagation using altitude + (rainfall * spreadFactor) - (depth * 2).
+4. If waterLevel >= grid.altitude, mark that grid as flooded and propagate to neighbors.
+5. Determine risk level: SAFE, DANGER, or EMERGENCY based on whether user's grid is flooded.
+
+Risk levels (confirmed from floodLogic.js):
+- SAFE: No flooded grids reached.
+- DANGER: Some grids flooded, but user's specific grid is NOT flooded.
+- EMERGENCY: User's specific grid is flooded.
+
+Note: These are project-specific computational outputs, not official government alert levels.

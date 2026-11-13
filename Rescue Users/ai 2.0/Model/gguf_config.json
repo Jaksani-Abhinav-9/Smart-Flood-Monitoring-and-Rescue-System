@@ -1,0 +1,26 @@
+{
+  "model_file": "qwen2.5-1.5b-custom-q4_k_m.gguf",
+  "model_name": "Rescue Sentinel AI 2.0 (Qwen 2.5 1.5B Custom GGUF Q4_K_M)",
+  "architecture": "qwen2",
+  "quantization": "Q4_K_M",
+  "file_size_bytes": 986048512,
+  "tensor_count": 338,
+  "block_count": 28,
+  "embedding_length": 1536,
+  "feed_forward_length": 8960,
+  "attention_head_count": 12,
+  "attention_head_count_kv": 2,
+  "rope_freq_base": 1000000.0,
+  "context_length_max": 32768,
+  "runtime": {
+    "n_ctx": 2048,
+    "n_threads": 4,
+    "n_gpu_layers": 0,
+    "temperature": 0.3,
+    "max_new_tokens": 400
+  },
+  "tokenizer_file": "gguf_tokenizer.json",
+  "chat_template_file": "gguf_chat_template.jinja",
+  "ollama_modelfile": "Modelfile",
+  "ollama_model_name": "floodguard-qwen"
+}

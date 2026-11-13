@@ -1,0 +1,77 @@
+/* SOS Button States — matches premium-landing.css token system */
+
+/* Base is defined in premium-landing.css (.sos-btn + .sos-idle) */
+
+/* Locating GPS */
+.sos-locating {
+  background: linear-gradient(135deg, #38BDF8, #2563EB);
+  color: white;
+  box-shadow: 0 4px 20px rgba(56, 189, 248, 0.35);
+}
+
+.sos-locating::before {
+  animation: none;
+}
+
+/* Confirming */
+.sos-confirming {
+  background: linear-gradient(135deg, #06B6D4, #2563EB);
+  color: white;
+  box-shadow: 0 4px 20px rgba(6, 182, 212, 0.35);
+}
+
+.sos-confirming::before {
+  animation: none;
+}
+
+/* Sending */
+.sos-sending {
+  background: linear-gradient(135deg, #3B82F6, #1D4ED8);
+  color: white;
+  animation: pulseSending 1.5s ease-in-out infinite;
+}
+
+.sos-sending::before {
+  animation: none;
+}
+
+/* Sent — Success */
+.sos-sent {
+  background: linear-gradient(135deg, #22C55E, #16A34A);
+  color: white;
+  box-shadow: 0 4px 20px rgba(34, 197, 94, 0.35);
+}
+
+.sos-sent::before {
+  border-color: rgba(34, 197, 94, 0.35);
+  animation: sosPulse 2s ease-in-out 1;
+}
+
+/* Error */
+.sos-error {
+  background: linear-gradient(135deg, #EF4444, #F97316);
+  color: white;
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.35);
+}
+
+.sos-error::before {
+  animation: none;
+}
+
+/* Disabled state */
+.sos-btn:disabled {
+  cursor: progress;
+  opacity: 0.92;
+}
+
+@keyframes pulseSending {
+  0%, 100% { transform: scale(1); box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3); }
+  50% { transform: scale(1.015); box-shadow: 0 6px 22px rgba(59, 130, 246, 0.45); }
+}
+
+.sos-status-text {
+  margin-top: 1rem;
+  color: var(--text-secondary, #94A3B8);
+  font-size: 0.875rem;
+  text-align: center;
+}

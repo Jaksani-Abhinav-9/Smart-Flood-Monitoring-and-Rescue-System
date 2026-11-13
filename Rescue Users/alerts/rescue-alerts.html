@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>📢 Rescue Team Alert Panel | Smart Flood Monitoring and Rescue System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../assets/Flood Rescue Monitoring Emblem.png">
+
+  <!-- Unified Shared Design System -->
+  <link rel="stylesheet" href="../css/home.css" />
+  <link rel="stylesheet" href="rescue-alerts.css" />
+</head>
+
+<body>
+
+<div class="app-shell alerts-layout-shell">
+
+  <!-- TOP BAR (Unified with Home & Dashboard) -->
+  <section class="top-bar" aria-label="App status bar">
+    <div class="brand">
+      <img src="../assets/Flood Rescue Monitoring Emblem.png" alt="Rescue Logo" class="brand-logo" />
+      <span>Smart Flood Rescue Dashboard</span>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+      <div class="connectivity" style="background:rgba(239,68,68,0.14);border:1px solid rgba(239,68,68,0.35);color:#fca5a5;" aria-live="polite">
+        <span style="background:#ef4444;box-shadow:0 0 8px #ef4444;"></span>
+        <span>Active Alerts: <strong id="topActiveCount" style="color:#ffffff;">0</strong></span>
+      </div>
+
+      <div id="connectivityStatus" class="connectivity" aria-live="polite">
+        <span></span>
+        <span>Broadcast Network Online</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN APP LAYOUT (Sidebar + Content Shell) -->
+  <main class="alerts-main-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar-panel" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <h2>Quick Actions</h2>
+      </div>
+
+      <nav class="sidebar-list" aria-label="Primary navigation">
+        <button class="sidebar-btn" type="button" onclick="location.href='../profile/profile.html'">
+          <span class="icon"><img src="../assets/icons/profile.svg" alt="Profile" /></span>
+          <span>Profile</span>
+        </button>
+
+        <button class="sidebar-btn" type="button" onclick="location.href='../home.html'">
+          <span class="icon"><img src="../assets/icons/ai.svg" alt="AI Suggestion" /></span>
+          <span>AI Suggestion</span>
+        </button>
+
+        <button class="sidebar-btn" type="button" onclick="location.href='../home.html'">
+          <span class="icon"><img src="../assets/icons/home.svg" alt="Home" /></span>
+          <span>Home</span>
+        </button>
+
+        <button class="sidebar-btn" type="button" onclick="location.href='../check-sos/rescue.html'">
+          <span class="icon"><img src="../assets/icons/sos.svg" alt="CHECK SOS" /></span>
+          <span>CHECK SOS</span>
+        </button>
+
+        <button class="sidebar-btn active" type="button" onclick="location.href='rescue-alerts.html'">
+          <span class="icon"><img src="../assets/icons/alerts.svg" alt="Alerts" /></span>
+          <span>Alerts</span>
+        </button>
+
+        <button class="sidebar-btn" type="button" onclick="location.href='../lora-data.html'">
+          <span class="icon"><img src="../assets/icons/live-data.svg" alt="Live Data" /></span>
+          <span>Live Data</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- CONTENT SHELL -->
+    <div class="content-area">
+
+      <!-- Back Navigation Row -->
+      <div class="nav-row">
+        <button class="back-btn" onclick="location.href='../home.html'">
+          <span>←</span>
+          <span>Return to Dashboard Map</span>
+        </button>
+      </div>
+
+      <!-- Page Header -->
+      <header class="page-header">
+        <div class="page-title-row">
+          <div class="page-icon">📢</div>
+          <div>
+            <h1 class="page-title">Emergency Alert Broadcast Console</h1>
+          </div>
+        </div>
+        <p class="page-subtitle">
+          Publish real-time flood warnings, evacuation notices, and safe corridor advisories instantly to field rescue teams and citizens across Kamareddy.
+        </p>
+      </header>
+
+      <!-- TWO-COLUMN DASHBOARD GRID -->
+      <div class="dashboard-grid">
+
+        <!-- LEFT COLUMN: ALERT DISPATCH FORM -->
+        <div class="dispatch-card">
+          <div class="dispatch-header">
+            <div class="dispatch-title">
+              <span>🚨</span>
+              <span>Dispatch Alert</span>
+            </div>
+            <div class="dispatch-badge">
+              <span class="pulse-dot"></span>
+              <span>Live Channel</span>
+            </div>
+          </div>
+
+          <!-- Quick Template Chips -->
+          <div style="font-size:0.75rem;font-weight:700;color:#94a3b8;text-transform:uppercase;margin-bottom:8px;letter-spacing:0.06em;">
+            ⚡ Quick Templates (1-Tap Fill)
+          </div>
+          <div class="template-chips-row">
+            <button type="button" class="template-chip" onclick="fillTemplate('surge')">
+              <span>🌊</span> Flash Surge
+            </button>
+            <button type="button" class="template-chip" onclick="fillTemplate('evac')">
+              <span>🏃</span> Evacuation
+            </button>
+            <button type="button" class="template-chip" onclick="fillTemplate('safe')">
+              <span>🟢</span> Route Safe
+            </button>
+          </div>
+
+          <!-- Title Input -->
+          <div class="form-group">
+            <label class="form-label" for="title">
+              <span>Alert Title</span>
+              <span style="color:#ef4444;">*</span>
+            </label>
+            <input type="text" id="title" class="input-text" placeholder="e.g. Flash Flood Warning - Lowland Basin" autocomplete="off" />
+          </div>
+
+          <!-- Severity Select -->
+          <div class="form-group">
+            <label class="form-label" for="type">
+              <span>Severity Level</span>
+              <span style="color:#ef4444;">*</span>
+            </label>
+            <select id="type" class="input-select">
+              <option value="emergency">🚨 Critical Emergency (High Priority)</option>
+              <option value="warning">⚠️ Evacuation Warning (Caution)</option>
+              <option value="info">ℹ️ Situation Advisory (Information)</option>
+            </select>
+          </div>
+
+          <!-- Message Textarea -->
+          <div class="form-group">
+            <label class="form-label" for="message">
+              <span>Directive & Instructions</span>
+              <span style="color:#ef4444;">*</span>
+            </label>
+            <textarea id="message" class="input-textarea" placeholder="Detail specific affected sectors, water levels, shelter locations, and evacuation vectors..."></textarea>
+          </div>
+
+          <!-- Send Button -->
+          <button id="sendBtn" class="btn-broadcast" type="button">
+            <span>🚀</span>
+            <span id="sendBtnText">Broadcast Alert to All</span>
+          </button>
+        </div>
+
+        <!-- RIGHT COLUMN: ALERTS TRIAGE FEED -->
+        <div class="alerts-feed-wrapper">
+
+          <!-- Filter & Count Card -->
+          <div class="feed-header-card">
+            <div style="display:flex;align-items:center;gap:10px;">
+              <span style="font-size:1.15rem;">📑</span>
+              <span style="font-weight:700;color:#f8fafc;font-size:1.05rem;">All Broadcasts</span>
+            </div>
+
+            <div class="tab-filter-group">
+              <button type="button" class="tab-filter-btn active" data-filter="all">
+                <span>All</span>
+                <span id="countAll" class="tab-counter">0</span>
+              </button>
+              <button type="button" class="tab-filter-btn" data-filter="active">
+                <span>🔴 Active</span>
+                <span id="countActive" class="tab-counter">0</span>
+              </button>
+              <button type="button" class="tab-filter-btn" data-filter="resolved">
+                <span>🟢 Resolved</span>
+                <span id="countResolved" class="tab-counter">0</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Real-Time List -->
+          <div id="alertsList" class="alerts-list">
+            <!-- Populated via Firestore snapshot -->
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </main>
+
+</div>
+
+<!-- Floating Toast -->
+<div id="toastMsg" class="toast-msg"></div>
+
+<script type="module" src="rescue-alerts.js"></script>
+
+</body>
+</html>

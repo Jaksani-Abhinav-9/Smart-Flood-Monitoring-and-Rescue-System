@@ -1,0 +1,55 @@
+{
+  "system_identity": "NDRF Tactical Sentinel AI 2.0",
+  "sector": "Kamareddy Field Rescue Operations, Telangana",
+  "operational_rules": {
+    "max_vehicle_wading_depth_meters": 0.8,
+    "flash_flood_elevation_threshold_meters": 515.0,
+    "critical_rise_rate_threshold_m_per_h": 0.4,
+    "electrical_hazard_safe_buffer_meters": 15.0,
+    "high_ground_safe_ridge_grid_id": 396,
+    "high_ground_safe_ridge_elevation": 530.88,
+    "prediction_engine": {
+      "forecast_horizon_hours": [1, 2],
+      "single_story_roof_datum_meters": 3.5,
+      "storm_temp_drop_threshold_celsius": 24.0,
+      "surge_acceleration_multiplier": 1.15
+    }
+  },
+  "critical_landmarks": [
+    {
+      "name": "Sarampally",
+      "grid_id": 613,
+      "elevation": 502.17,
+      "risk": "Critical / Very High",
+      "protocol": "Lowest municipal basin. Deep entrapment risk. Inflatable motorized boats mandatory."
+    },
+    {
+      "name": "Adloor",
+      "grid_id": 478,
+      "elevation": 509.28,
+      "risk": "Very High Risk",
+      "protocol": "Low basin depression. Culvert suction trap. Reroute eastward via Lingapur Ridge."
+    },
+    {
+      "name": "Devanpally",
+      "grid_id": 583,
+      "elevation": 518.90,
+      "risk": "High Risk",
+      "protocol": "Stormwater runoff basin. High bridge scour risk."
+    },
+    {
+      "name": "Tekriyal",
+      "grid_id": 315,
+      "elevation": 519.35,
+      "risk": "High Risk",
+      "protocol": "River confluence. High flow velocity exceeding 1.5 m/s."
+    },
+    {
+      "name": "Lingapur",
+      "grid_id": 396,
+      "elevation": 530.88,
+      "risk": "Safe High Ground",
+      "protocol": "Primary high-ground evacuation corridor and convoy bypass route."
+    }
+  ]
+}

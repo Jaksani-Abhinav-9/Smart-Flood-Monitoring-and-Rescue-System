@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none">
+  <defs>
+    <linearGradient id="homeGrad" x1="4" y1="3" x2="20" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5eead4"/>
+      <stop offset="100%" stop-color="#0d9488"/>
+    </linearGradient>
+  </defs>
+  <!-- Roof -->
+  <path d="M3 10.5L12 3l9 7.5" stroke="url(#homeGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Body -->
+  <path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5" fill="rgba(45, 212, 191, 0.18)" stroke="#5eead4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Door / Center portal -->
+  <path d="M10 21v-6a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v6" stroke="#99f6e4" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

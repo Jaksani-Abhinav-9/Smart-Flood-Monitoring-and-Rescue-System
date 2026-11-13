@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Citizen Home | Smart Flood Monitoring and Rescue System</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <link rel="stylesheet" href="css/home.css">
+  <style>
+    .leaflet-control-attribution {
+      display: none !important;
+    }
+
+    /* Live GPS User Beacon */
+    .user-live-beacon-container {
+      background: transparent !important;
+      border: none !important;
+    }
+
+    .user-live-beacon {
+      position: relative;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .user-live-core {
+      width: 15px;
+      height: 15px;
+      background: #2563eb;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.85), 0 2px 6px rgba(0, 0, 0, 0.45);
+      z-index: 2;
+      position: relative;
+    }
+
+    .user-live-pulse {
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: rgba(37, 99, 235, 0.4);
+      animation: liveBeaconPulse 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+      z-index: 1;
+    }
+
+    @keyframes liveBeaconPulse {
+      0% {
+        transform: scale(0.6);
+        opacity: 0.95;
+      }
+
+      100% {
+        transform: scale(2.4);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <section class="top-bar" aria-label="App status bar">
+
+      <div class="brand">
+        Smart Flood Monitoring and Rescue System
+      </div>
+
+      <div id="connectivityStatus" class="connectivity" aria-live="polite">
+
+        <span></span>
+        Online
+
+      </div>
+
+    </section>
+
+    <main class="map-shell">
+
+      <div id="map" aria-label="Flood rescue map"></div>
+
+      <button id="recenterBtn" class="map-action" type="button">
+
+        Re-center me
+
+      </button>
+
+      <div class="left-sidebar-dock">
+
+        <aside class="sidebar-panel" aria-label="Main navigation">
+
+          <div class="sidebar-header">
+
+            <h2>Quick Actions</h2>
+
+          </div>
+
+          <nav class="sidebar-list" aria-label="Primary navigation">
+
+            <button class="sidebar-btn" type="button" onclick="openProfile()">
+
+              <span class="icon">👤</span>
+              <span>Profile</span>
+
+            </button>
+
+            <button class="sidebar-btn" id="suggestionOpenBtn" type="button" onclick="openAIChat()">
+
+              <span class="icon">🤖</span>
+              <span>AI Assistant</span>
+
+            </button>
+
+            <button class="sidebar-btn active" type="button" onclick="window.location.href='home.html'">
+
+              <span class="icon">🏠</span>
+              <span>Home</span>
+
+            </button>
+
+            <button class="sidebar-btn sos-action" id="sosActionBtn" type="button" aria-label="Hold to confirm SOS">
+
+              <span class="icon">🚨</span>
+              <span>SOS</span>
+
+            </button>
+
+            <button class="sidebar-btn alerts" id="alertsOpenBtn" type="button">
+
+              <span class="icon">🔔</span>
+              <span>Alerts</span>
+
+            </button>
+
+          </nav>
+
+        </aside>
+
+
+
+      </div>
+
+      <!-- PREMIUM STATUS CARD -->
+
+      <section class="status-card" aria-label="Emergency status overview">
+
+        <header>
+
+          <div>
+
+            <p class="stat-label">
+              Emergency Status
+            </p>
+
+            <h3>
+              Active Monitoring
+            </h3>
+
+          </div>
+
+          <span class="stat-chip">
+            Safe
+          </span>
+
+        </header>
+
+        <div class="monitor-card">
+
+          <div class="monitor-top">
+
+            <div class="monitor-title">
+              LIVE FLOOD MONITORING
+            </div>
+
+            <div class="monitor-badge" id="riskValue">
+
+              Safe
+
+            </div>
+
+          </div>
+
+          <div class="monitor-center">
+
+            <h2 id="systemValue">
+              Monitoring
+            </h2>
+
+            <p>
+
+              Your area is currently being monitored continuously.
+              Rescue services are on standby.
+
+            </p>
+
+          </div>
+
+          <div class="monitor-bottom">
+
+            <div>
+
+              <small>
+                Current Location
+              </small>
+
+              <strong id="locationValue">
+                Kamareddy
+              </strong>
+
+            </div>
+
+            <div>
+
+              <small>
+                Nearest Safe Zone
+              </small>
+
+              <strong id="nearestValue">
+                Loading nearby resources…
+              </strong>
+
+            </div>
+
+            <div>
+
+              <small>
+                Flood Zone
+              </small>
+
+              <strong id="zoneValue">
+                High Risk
+              </strong>
+
+            </div>
+
+            <div>
+              <small>Last Updated</small>
+              <strong id="updatedValue">Just Now</strong>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <section class="action-sheet" aria-label="Mobile quick actions">
+      <button class="sos-action" id="sosActionBtnMobile" type="button">
+        Hold to SOS
+      </button>
+      <button class="share-action" id="shareLocationBtn" type="button">
+        Share location
+      </button>
+    </section>
+
+    <!-- AI ASSISTANT CHATBOT MODAL -->
+    <div id="aiChatOverlay" class="overlay" aria-hidden="true" style="z-index:2000">
+      <div class="ai-chatbot-window" role="dialog" aria-modal="true" aria-labelledby="ai-chat-title">
+
+        <!-- CHATBOT HEADER -->
+        <div class="ai-chat-header">
+          <div class="ai-header-left">
+            <div class="ai-avatar-badge">
+              <span class="ai-avatar-icon">🤖</span>
+              <span class="ai-status-pulse"></span>
+            </div>
+            <div class="ai-header-info">
+              <h3 id="ai-chat-title">FloodGuard AI Assistant</h3>
+              <p style="margin:2px 0 0;font-size:0.80rem;color:#94a3b8;font-weight:400">Emergency Flood Safety &
+                Survival Directives</p>
+            </div>
+          </div>
+          <div class="ai-header-actions">
+            <button id="aiClearBtn" class="ai-tool-btn" title="Clear conversation" onclick="clearAIChat()"
+              type="button">🧹</button>
+            <button id="aiCloseBtn" class="ai-tool-btn close" title="Close chat" onclick="closeAIChat()"
+              type="button">✕</button>
+          </div>
+        </div>
+
+        <!-- MESSAGES FLOW -->
+        <div id="aiMessages" class="ai-messages-flow">
+          <div class="ai-bubble ai">
+            <div class="ai-bubble-head">
+              <span class="ai-bubble-name">FloodGuard AI</span>
+              <span class="ai-bubble-time">Just now</span>
+            </div>
+            <div class="ai-bubble-body">👋 Hello! I am your <strong>FloodGuard AI Assistant</strong>.
+              I am ready to help you with immediate flood survival directives, electrical safety, vehicle extraction,
+              drinking water safety, and emergency response. <strong>How can I help you right now?</strong></div>
+          </div>
+        </div>
+
+        <!-- INPUT DOCK -->
+        <div class="ai-input-dock">
+          <div class="ai-input-wrap">
+            <input id="aiInput" type="text" placeholder="Ask any flood safety or emergency question..."
+              autocomplete="off">
+            <button id="aiSendBtn" type="button" aria-label="Send query">
+              <span>Send</span>
+              <span class="send-arrow">➤</span>
+            </button>
+          </div>
+          <div class="ai-disclaimer">
+            ⚠️ <span>In immediate life danger, always call <strong>112</strong> or <strong>108</strong>
+              immediately.</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- REALTIME FIREBASE ALERTS MODAL -->
+    <div id="alertsOverlay" class="alerts-overlay" aria-hidden="true">
+      <div class="alerts-panel" role="dialog" aria-modal="true" aria-labelledby="alerts-title">
+        <h3 id="alerts-title">📢 Emergency Alerts Broadcast</h3>
+        <div id="alertsList"></div>
+        <button class="close-btn" id="alertsCloseBtn" type="button">Close</button>
+      </div>
+    </div>
+
+    <!-- TOAST -->
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+
+  <!-- Leaflet Map -->
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Firebase auth guard + profile population + SOS backend -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDc8peb4i19Rku8smgr5BwLxt0WMB9Gjw",
+      authDomain: "flood-rescue-guide-ac3a8.firebaseapp.com",
+      projectId: "flood-rescue-guide-ac3a8",
+      storageBucket: "flood-rescue-guide-ac3a8.appspot.com",
+      messagingSenderId: "635830559756",
+      appId: "1:635830559756:web:xxxxxx"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.firebaseApp = app;
+    window.firebaseAuth = auth;
+    window.firebaseDb = db;
+    window.firebaseCollection = collection;
+    window.firebaseAddDoc = addDoc;
+    window.firebaseServerTimestamp = serverTimestamp;
+    window.firebaseFirestoreModule = { doc, getDoc, setDoc, updateDoc, collection, addDoc, serverTimestamp, query, orderBy, onSnapshot };
+    window.currentUserName = localStorage.getItem('userName') || 'Citizen';
+
+    const startedFromMain = sessionStorage.getItem('startedFromMain') === 'true';
+    const bypassAuth = !startedFromMain || localStorage.getItem('bypassAuth') === 'true';
+
+    if (bypassAuth) {
+      console.log('⚠️ Firebase Auth Guard bypassed (opened directly or via bypass flag)');
+    } else {
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          // Not signed in — redirect to login
+          window.location.href = 'login.html';
+          return;
+        }
+
+        try {
+          const snap = await getDoc(doc(db, 'users', user.uid));
+          if (!snap.exists()) {
+            await signOut(auth);
+            window.location.href = 'login.html';
+            return;
+          }
+
+          const profile = snap.data();
+          if (profile.role !== 'citizen') {
+            alert('You are not authorized to access the citizen dashboard.');
+            await signOut(auth);
+            window.location.href = 'login.html';
+            return;
+          }
+
+          window.currentUserProfile = profile;
+          window.currentUserName = profile.name || profile.fullName || user.displayName || 'Citizen';
+          localStorage.setItem('userName', window.currentUserName);
+
+        } catch (err) {
+          console.error('Auth guard error', err);
+          await signOut(auth);
+          window.location.href = 'login.html';
+        }
+      });
+    }
+  </script>
+
+  <script>
+    // Bulletproof immediate global handlers for AI Assistant Chatbot
+    window.openAIChat = function () {
+      const overlay = document.getElementById('aiChatOverlay');
+      if (overlay) {
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
+        const input = document.getElementById('aiInput');
+        if (input) setTimeout(() => input.focus(), 60);
+      }
+    };
+
+    window.closeAIChat = function () {
+      const overlay = document.getElementById('aiChatOverlay');
+      if (overlay) {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+    };
+  </script>
+
+  <!-- Main JavaScript -->
+
+  <script type="module" src="js/home.js" defer></script>
+
+</body>
+
+</html>

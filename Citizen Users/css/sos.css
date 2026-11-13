@@ -1,0 +1,426 @@
+/* ===============================
+   GLOBAL RESET
+================================ */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', 'Inter', 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0a1220 0%, #0d1b2e 60%, #071018 100%);
+  color: #eaf2fb;
+}
+
+/* ===============================
+   SIDEBAR
+================================ */
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  padding: 24px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: rgba(10, 18, 32, 0.6);
+  border-right: 1px solid rgba(94, 234, 212, 0.1);
+  backdrop-filter: blur(12px);
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 16px;
+  border-radius: 16px;
+  text-decoration: none;
+  background: rgba(255,255,255,0.04);
+  color: #cbd5e0;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-item:hover {
+  background: rgba(255,255,255,0.08);
+  color: #eaf2fb;
+  border-color: rgba(94, 234, 212, 0.2);
+}
+
+.menu-item .icon { font-size: 18px; }
+.menu-item .text { font-size: 14px; }
+
+/* ===============================
+   MAIN PAGE
+================================ */
+.sos-page {
+  flex: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 28px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===============================
+   FORM CARD
+================================ */
+.sos-form {
+  background: rgba(13, 22, 42, 0.82);
+  border: 1px solid rgba(94, 234, 212, 0.14);
+  padding: 28px 24px;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.sos-form-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.sos-form-header h2 {
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f8fafc;
+  margin-right: 48px;
+}
+
+.back-btn {
+  padding: 7px 16px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #94a3b8;
+  font-size: 0.83rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.back-btn:hover {
+  background: rgba(255,255,255,0.12);
+  color: #eaf2fb;
+}
+
+/* INPUT */
+.sos-form input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.05);
+  color: #eaf2fb;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.sos-form input::placeholder { color: #64748b; }
+.sos-form input:focus { border-color: rgba(94, 234, 212, 0.4); }
+
+/* LOCATION DISPLAY */
+.location-display {
+  padding: 10px 14px;
+  border-radius: 10px;
+  background: rgba(34, 211, 238, 0.06);
+  border: 1px solid rgba(34, 211, 238, 0.14);
+  color: #7dd3fc;
+  font-size: 0.83rem;
+  margin-bottom: 28px;
+}
+
+/* ===============================
+   3-SECOND HOLD BUTTON
+================================ */
+.sos-hold-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0 8px;
+}
+
+.sos-ring {
+  --progress: 0%;
+  position: relative;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG ring drawn via conic-gradient on pseudo-element */
+.sos-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ef4444 var(--progress),
+    rgba(255,255,255,0.08) var(--progress)
+  );
+  transition: background 0.1s linear;
+}
+
+.sos-ring::after {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border-radius: 50%;
+  background: #0a1220;
+}
+
+.sos-hold-btn {
+  position: relative;
+  z-index: 1;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7f1d1d 0%, #b91c1c 100%);
+  border: 2px solid rgba(239, 68, 68, 0.4);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  box-shadow:
+    0 0 0 1px rgba(239,68,68,0.3),
+    0 8px 30px rgba(239,68,68,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.sos-hold-btn:hover {
+  transform: scale(1.04);
+  box-shadow:
+    0 0 0 1px rgba(239,68,68,0.5),
+    0 12px 36px rgba(239,68,68,0.45);
+}
+
+.sos-hold-btn.holding {
+  animation: holdPulse 0.6s infinite alternate ease-in-out;
+}
+
+.sos-hold-btn.sent {
+  background: linear-gradient(135deg, #065f46, #059669);
+  border-color: rgba(52, 211, 153, 0.5);
+  box-shadow:
+    0 0 0 1px rgba(52,211,153,0.4),
+    0 8px 30px rgba(52,211,153,0.3);
+  animation: none;
+}
+
+@keyframes holdPulse {
+  from { transform: scale(1);    box-shadow: 0 0 0 1px rgba(239,68,68,0.5), 0 8px 30px rgba(239,68,68,0.4); }
+  to   { transform: scale(1.06); box-shadow: 0 0 0 4px rgba(239,68,68,0.2), 0 16px 44px rgba(239,68,68,0.55); }
+}
+
+.sos-icon { font-size: 2rem; line-height: 1; }
+
+.sos-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  opacity: 0.95;
+}
+
+.sos-hint {
+  font-size: 0.83rem;
+  color: #64748b;
+  text-align: center;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.sos-hint strong { color: #94a3b8; }
+
+/* STATUS MESSAGE */
+.sos-status-msg {
+  text-align: center;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 10px 14px;
+  border-radius: 10px;
+  min-height: 20px;
+  margin-top: 14px;
+  transition: all 0.2s;
+}
+
+.sos-status-msg.info    { background: rgba(59,130,246,0.12); color: #7dd3fc; border: 1px solid rgba(59,130,246,0.2); }
+.sos-status-msg.success { background: rgba(52,211,153,0.12); color: #6ee7b7; border: 1px solid rgba(52,211,153,0.2); }
+.sos-status-msg.error   { background: rgba(239,68,68,0.12);  color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
+
+/* ===============================
+   SOS HISTORY
+================================ */
+.sos-history {
+  background: rgba(13, 22, 42, 0.82);
+  border: 1px solid rgba(94, 234, 212, 0.14);
+  padding: 22px 20px;
+  border-radius: 22px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.05);
+}
+
+.sos-history h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.sos-card {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  transition: background 0.2s;
+}
+
+.sos-card:hover { background: rgba(255,255,255,0.07); }
+.sos-card:last-child { margin-bottom: 0; }
+
+.sos-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.sos-card-header b {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.sos-card-loc {
+  font-size: 0.8rem;
+  color: #64748b;
+  margin-bottom: 8px;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.sos-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sos-card-footer small {
+  font-size: 0.72rem;
+  color: #475569;
+}
+
+/* STATUS BADGES */
+.status {
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.status.pending   { background: rgba(239,68,68,0.18);   color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+.status.active    { background: rgba(59,130,246,0.18);  color: #93c5fd; border: 1px solid rgba(59,130,246,0.3); }
+.status.completed { background: rgba(52,211,153,0.18);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.3); }
+
+/* PRIORITY BADGES */
+.priority {
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.priority.high   { color: #f87171; }
+.priority.medium { color: #fbbf24; }
+.priority.low    { color: #34d399; }
+
+.no-history {
+  color: #475569;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 20px 0;
+  font-style: italic;
+}
+
+/* =====================================================
+   🔵 SIDEBAR SOS GLOW — DEFAULT (BLUE PULSE)
+===================================================== */
+.menu-item.sos.sos-alert-default {
+  background: rgba(30, 58, 138, 0.5);
+  border-color: rgba(59,130,246,0.4);
+  color: #93c5fd;
+  animation: bluePulse 2.2s infinite ease-in-out;
+  box-shadow: 0 0 12px rgba(59,130,246,0.7), 0 0 30px rgba(59,130,246,0.5);
+}
+
+@keyframes bluePulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.04); }
+  100% { transform: scale(1); }
+}
+
+/* =====================================================
+   🔴 SIDEBAR SOS GLOW — PENDING (HEARTBEAT)
+===================================================== */
+.menu-item.sos.sos-alert-pending {
+  background: rgba(127, 29, 29, 0.6);
+  border-color: rgba(220,38,38,0.5);
+  color: #fca5a5;
+  animation: heartbeatCore 1.3s infinite;
+  box-shadow: 0 0 18px rgba(220,38,38,1), 0 0 45px rgba(220,38,38,0.8);
+}
+
+.menu-item.sos.sos-alert-pending::before {
+  content: '';
+  position: absolute;
+  inset: -18px;
+  border-radius: 26px;
+  background: rgba(220,38,38,0.5);
+  filter: blur(26px);
+  z-index: -1;
+  animation: heartbeatWave 1.3s infinite;
+}
+
+@keyframes heartbeatCore {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.12); }
+  40%  { transform: scale(1); }
+  60%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@keyframes heartbeatWave {
+  0%   { transform: scale(0.85); opacity: 0.9; }
+  50%  { transform: scale(1.35); opacity: 0.45; }
+  100% { transform: scale(1.7);  opacity: 0; }
+}
+
+/* ===============================
+   RESPONSIVE
+================================ */
+@media (max-width: 640px) {
+  .sidebar { display: none; }
+  .sos-page { padding: 16px; }
+}

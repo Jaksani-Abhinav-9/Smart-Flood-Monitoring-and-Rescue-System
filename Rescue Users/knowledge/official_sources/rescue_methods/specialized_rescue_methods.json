@@ -1,0 +1,19 @@
+{
+  "source_metadata": {
+    "organization": "National Disaster Response Force (NDRF) & National Disaster Management Authority (NDMA)",
+    "title": "Tactical Rescue Techniques, Aquatic Search & Extraction Manual",
+    "url": "https://ndrf.gov.in",
+    "version": "NDRF-TACTICAL-MANUAL-2023",
+    "category": "Rescue Methods & Tactics",
+    "data_type": "STATIC_KNOWLEDGE",
+    "verification_status": "VERIFIED_OFFICIAL"
+  },
+  "methods": {
+    "water_rescue_wading": "Permitted only in slow-moving water (< 0.5 m/s) below knee depth with wading pole and PFD.",
+    "throw_bag_deployment": "Standard upstream lead throw; rescuer adopts defensive braced stance; dynamic belay to cushion impact.",
+    "motorized_irb_boat_rescue": "Approach bow-first into current; maintain throttle control; dead-man switch tethered to pilot; bowman spotter with pike pole.",
+    "swiftwater_rope_rigging": "Tension diagonal high-line across riverbanks using 11mm static rescue rope (30 kN) and mechanical advantage 3:1 Z-rig.",
+    "vehicle_water_extraction": "Approach from downstream eddy; secure tether line to vehicle frame; break side tempered glass with spring punch; never front laminated windshield.",
+    "night_sar_acoustic_triangulation": "Acoustic silence drill (HUSH) every 100m; 3 whistle blasts for distress; 2 whistle blasts reply; 3000lm searchlights & FLIR thermal."
+  }
+}

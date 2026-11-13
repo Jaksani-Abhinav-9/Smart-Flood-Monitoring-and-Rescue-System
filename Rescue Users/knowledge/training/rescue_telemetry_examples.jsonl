@@ -1,0 +1,8 @@
+{"name": "LoRa Sensor Node Offline Timeout", "device_id": "KMR_NODE_01", "sensor_status": "OFFLINE", "failure_mode": "No radio packets received for > 4.5 hours during heavy rain."}
+{"name": "Spatial Sensor Disagreement", "primary_node": "KMR_NODE_02A", "secondary_node": "KMR_NODE_02B", "discrepancy_m": 2.25, "failure_mode": "Adjacent nodes report conflicting flood stages across same canal corridor."}
+{"name": "Packet Recovery After Silence", "device_id": "KMR_NODE_04", "sensor_status": "OK", "event": "RECONNECTED_AFTER_SILENCE", "description": "Link restored with fresh packet after 3-hour radio blackout."}
+{"name": "Sudden Stage Drop to Zero", "device_id": "KMR_NODE_03", "sensor_status": "CALIBRATION_REQUIRED", "failure_mode": "Stage plunges from 2.4m to 0.0m in 2 minutes due to severed transducer cable."}
+{"name": "Duplicate & Delayed Packet Burst", "device_id": "KMR_NODE_05", "sensor_status": "STALE", "failure_mode": "Store-and-forward relay transmits duplicate retry packet 45 minutes late."}
+{"name": "Weak Signal & High CRC Packet Loss", "device_id": "KMR_NODE_09", "sensor_status": "CORRUPTED", "failure_mode": "RSSI -128 dBm, SNR -16 dB, high path loss in dense vegetation."}
+{"name": "Low Battery Warning Under Flood Conditions", "device_id": "KMR_NODE_10", "sensor_status": "OK", "failure_mode": "Battery voltage drops to 3.2V (8%) due to mud coating solar panel."}
+{"name": "Sunny Weather Dam Release Inundation Wave", "device_id": "KMR_NODE_11", "sensor_status": "STALE", "failure_mode": "Telemetry stale during clear local skies while upstream dam releases 15,000 cusecs."}

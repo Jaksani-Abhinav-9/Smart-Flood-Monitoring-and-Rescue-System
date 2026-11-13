@@ -1,0 +1,104 @@
+{
+  "state": "Telangana",
+  "capital": "Hyderabad",
+  "operationCenter": "Kamareddy District Command",
+  "districts": [
+    {
+      "name": "Kamareddy",
+      "headquarters": "Kamareddy",
+      "lat": 18.3261,
+      "lng": 78.3332,
+      "floodRiskZones": ["Lingapur", "Tekriyal", "Brahmanpalle", "Devai Palle"],
+      "rivers": ["Manjeera River Basin", "Pocharam Reservoir"],
+      "controlRoom": "+91-8468-220001"
+    },
+    {
+      "name": "Nizamabad",
+      "headquarters": "Nizamabad",
+      "lat": 18.6725,
+      "lng": 78.0941,
+      "rivers": ["Godavari Basin", "Alisagar"],
+      "controlRoom": "+91-8462-220002"
+    },
+    {
+      "name": "Medak",
+      "headquarters": "Medak",
+      "lat": 18.0457,
+      "lng": 78.2612,
+      "rivers": ["Manjeera River Basin", "Haldi Vagu"],
+      "controlRoom": "+91-8452-220003"
+    },
+    {
+      "name": "Sangareddy",
+      "headquarters": "Sangareddy",
+      "lat": 17.6193,
+      "lng": 78.0815,
+      "rivers": ["Singur Dam Reservoir"],
+      "controlRoom": "+91-8455-220004"
+    },
+    {
+      "name": "Siddipet",
+      "headquarters": "Siddipet",
+      "lat": 18.1018,
+      "lng": 78.8521,
+      "rivers": ["Kaleshwaram Lift Canal System", "Komati Cheruvu"],
+      "controlRoom": "+91-8457-220005"
+    },
+    {
+      "name": "Rajanna Sircilla",
+      "headquarters": "Sircilla",
+      "lat": 18.3888,
+      "lng": 78.8028,
+      "rivers": ["Mid Manair Reservoir"],
+      "controlRoom": "+91-8723-220006"
+    },
+    {
+      "name": "Karimnagar",
+      "headquarters": "Karimnagar",
+      "lat": 18.4386,
+      "lng": 79.1288,
+      "rivers": ["Lower Manair Dam"],
+      "controlRoom": "+91-878-220007"
+    },
+    {
+      "name": "Hyderabad",
+      "headquarters": "Hyderabad",
+      "lat": 17.3850,
+      "lng": 78.4867,
+      "rivers": ["Musi River", "Hussain Sagar"],
+      "controlRoom": "+91-40-23454088"
+    },
+    {
+      "name": "Warangal",
+      "headquarters": "Warangal",
+      "lat": 17.9784,
+      "lng": 79.5941,
+      "rivers": ["Waddepally Lake", "Bhadrakali Basin"],
+      "controlRoom": "+91-870-220008"
+    },
+    {
+      "name": "Khammam",
+      "headquarters": "Khammam",
+      "lat": 17.2473,
+      "lng": 80.1514,
+      "rivers": ["Munneru River Basin"],
+      "controlRoom": "+91-8742-220009"
+    },
+    {
+      "name": "Adilabad",
+      "headquarters": "Adilabad",
+      "lat": 19.6641,
+      "lng": 78.5320,
+      "rivers": ["Penganga River", "Kadem River"],
+      "controlRoom": "+91-8732-220010"
+    },
+    {
+      "name": "Mahabubnagar",
+      "headquarters": "Mahabubnagar",
+      "lat": 16.7488,
+      "lng": 77.9856,
+      "rivers": ["Krishna River Basin"],
+      "controlRoom": "+91-8542-220011"
+    }
+  ]
+}

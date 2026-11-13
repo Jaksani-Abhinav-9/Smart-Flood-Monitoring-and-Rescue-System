@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rescue Team Profile | Smart Flood Monitoring and Rescue System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="../assets/Flood Rescue Monitoring Emblem.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  
+  <!-- Shared premium styles -->
+  <link rel="stylesheet" href="../css/home.css" />
+
+  <style>
+    body {
+      overflow: auto;
+      background: radial-gradient(60% 50% at 15% 8%, rgba(34, 211, 238, 0.10) 0%, transparent 60%),
+                  radial-gradient(50% 45% at 90% 12%, rgba(59, 130, 246, 0.12) 0%, transparent 65%),
+                  var(--bg);
+    }
+
+    .app-shell {
+      min-height: 100vh;
+    }
+
+    .profile-content {
+      padding: 110px 24px 24px 280px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .profile-card {
+      width: min(920px, 100%);
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 20px;
+      padding: 24px;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(17, 28, 48, 0.92), rgba(11, 18, 33, 0.86));
+      border: 1px solid rgba(94, 234, 212, 0.16);
+      box-shadow: 0 24px 60px rgba(2, 6, 16, 0.38);
+      color: var(--text);
+    }
+
+    .profile-side {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      padding: 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .profile-avatar {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      background: linear-gradient(135deg, var(--danger), var(--warning));
+      color: white;
+      box-shadow: 0 16px 40px rgba(247, 85, 85, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .profile-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .profile-actions button {
+      flex: 1 1 120px;
+      min-height: 42px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      color: var(--text);
+      border: 1px solid rgba(255,255,255,0.08);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .profile-actions button:hover {
+      background: rgba(255,255,255,0.14);
+      transform: translateY(-1px);
+    }
+
+    .profile-info {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .profile-info div {
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .profile-info span {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .profile-info strong {
+      font-size: 0.98rem;
+      color: var(--text);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .stat-box {
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .stat-box .label {
+      display: block;
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .stat-box strong {
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .table-card {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .table-card table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .table-card th, .table-card td {
+      padding: 12px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 0.9rem;
+    }
+
+    .table-card th {
+      font-family: var(--font-display);
+      font-weight: 600;
+      color: var(--muted);
+      text-align: left;
+    }
+
+    .table-card td {
+      color: var(--text);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .badge.done {
+      background: rgba(52, 211, 153, 0.12);
+      border: 1px solid rgba(52, 211, 153, 0.32);
+      color: #6ee7c3;
+    }
+
+    @media (max-width: 900px) {
+      .profile-card {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-content {
+        padding-left: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    
+    <!-- TOP BAR -->
+    <section class="top-bar" aria-label="App status bar">
+      <div class="brand">
+        <img src="../assets/Flood Rescue Monitoring Emblem.png" alt="Rescue Logo" class="brand-logo" />
+        <span>Smart Flood Rescue Dashboard</span>
+      </div>
+      <div id="connectivityStatus" class="connectivity" aria-live="polite">
+        <span></span>
+        Online
+      </div>
+    </section>
+
+    <main class="map-shell">
+      
+      <!-- SIDEBAR -->
+      <aside class="sidebar-panel" aria-label="Main navigation">
+        <div class="sidebar-header">
+          <h2>Quick Actions</h2>
+        </div>
+        <nav class="sidebar-list" aria-label="Primary navigation">
+          <button class="sidebar-btn active" type="button" onclick="location.href='profile.html'">
+            <span class="icon"><img src="../assets/icons/profile.svg" alt="Profile" /></span>
+            <span>Profile</span>
+          </button>
+          <button class="sidebar-btn" type="button" onclick="openAI()">
+            <span class="icon"><img src="../assets/icons/ai.svg" alt="AI Suggestion" /></span>
+            <span>AI Suggestion</span>
+          </button>
+          <button class="sidebar-btn" type="button" onclick="location.href='../home.html'">
+            <span class="icon"><img src="../assets/icons/home.svg" alt="Home" /></span>
+            <span>Home</span>
+          </button>
+          <button class="sidebar-btn" type="button" onclick="location.href='../check-sos/rescue.html'">
+            <span class="icon"><img src="../assets/icons/sos.svg" alt="CHECK SOS" /></span>
+            <span>CHECK SOS</span>
+          </button>
+          <button class="sidebar-btn" type="button" onclick="goToRescueAlerts()">
+            <span class="icon"><img src="../assets/icons/alerts.svg" alt="Alerts" /></span>
+            <span>Alerts</span>
+          </button>
+          <button class="sidebar-btn" type="button" onclick="location.href='../lora-data.html'">
+            <span class="icon"><img src="../assets/icons/live-data.svg" alt="Live Data" /></span>
+            <span>Live Data</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- PROFILE CARD -->
+      <section class="profile-content" aria-label="User profile">
+        <div class="profile-card">
+          <div style="grid-column: 1 / -1; display: flex; justify-content: flex-start; margin-bottom: -10px;">
+            <button onclick="location.href='../home.html'" style="padding: 6px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); color: var(--text); font-weight: 500; font-size: 0.85rem; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; transition: all 0.2s ease;">
+              ← Back to Home
+            </button>
+          </div>
+          
+          <div class="profile-side">
+            <div class="profile-avatar" id="profileAvatar">🧑‍🚒</div>
+            <h3 id="userName">Rescue Team</h3>
+            <p id="userEmail">Loading profile…</p>
+            <div class="profile-actions">
+              <button type="button" onclick="window.logout()">Logout</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="profile-info">
+              <div>
+                <span>Phone</span>
+                <strong id="userPhone">-</strong>
+              </div>
+              <div>
+                <span>Role</span>
+                <strong id="userRole">Rescue Team</strong>
+              </div>
+              <div>
+                <span>Location</span>
+                <strong id="userLocation">-</strong>
+              </div>
+              <div>
+                <span>Account</span>
+                <strong>Verified</strong>
+              </div>
+            </div>
+
+            <div class="stat-grid">
+              <div class="stat-box">
+                <span class="label">SOS Solved</span>
+                <strong id="solvedCount">0</strong>
+              </div>
+              <div class="stat-box">
+                <span class="label">Alerts Issued</span>
+                <strong id="alertsCount">5</strong>
+              </div>
+              <div class="stat-box">
+                <span class="label">Status</span>
+                <strong>Active</strong>
+              </div>
+            </div>
+
+            <!-- TABLE CARD (Resolved SOS History) -->
+            <div class="table-card" style="margin-top: 20px;">
+              <h3>SOS Solved History</h3>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Priority</th>
+                  </tr>
+                </thead>
+                <tbody id="historyList">
+                  <!-- Dynamic History Rows -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <!-- Firebase Scripts -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+    import { getFirestore, doc, getDoc, collection, query, where, getDocs } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDc8peb4i19Rku8smgr5BwLxt0WMB9Gjw",
+      authDomain: "flood-rescue-guide-ac3a8.firebaseapp.com",
+      projectId: "flood-rescue-guide-ac3a8",
+      storageBucket: "flood-rescue-guide-ac3a8.appspot.com",
+      messagingSenderId: "635830559756",
+      appId: "1:635830559756:web:xxxxxx"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Dynamic profile UI population helper
+    function populateProfile(user, data) {
+      const safeData = data || {};
+      document.getElementById("userName").innerText = safeData.name || "Rescue Team Alpha";
+      document.getElementById("userEmail").innerText = safeData.email || user?.email || "rescue-alpha@floodrescue.gov";
+      document.getElementById("userPhone").innerText = safeData.phone || "987-654-3210";
+      document.getElementById("userRole").innerText = safeData.role ? safeData.role.toUpperCase() : "RESCUE TEAM";
+      document.getElementById("userLocation").innerText = safeData.location || "Kamareddy District HQ";
+    }
+
+    // Populate resolved SOS list
+    function renderHistory(historyData) {
+      const list = document.getElementById("historyList");
+      list.innerHTML = "";
+
+      if (!historyData || historyData.length === 0) {
+        list.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--muted);">No completed tasks yet.</td></tr>`;
+        return;
+      }
+
+      historyData.forEach(item => {
+        const tr = document.createElement("tr");
+
+        // Format date nicely
+        let dateStr = "Recently";
+        if (item.createdAt) {
+          const dateObj = item.createdAt.toDate ? item.createdAt.toDate() : new Date(item.createdAt);
+          dateStr = dateObj.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+        }
+
+        tr.innerHTML = `
+          <td>${dateStr}</td>
+          <td>${item.location || item.lat.toFixed(3) + ', ' + item.lng.toFixed(3)}</td>
+          <td><span class="badge done">Resolved</span></td>
+          <td style="text-transform: capitalize;">${item.priority || 'medium'}</td>
+        `;
+        list.appendChild(tr);
+      });
+    }
+
+    // Auth Bypass check
+    const startedFromMain = sessionStorage.getItem('startedFromMain') === 'true';
+    const bypassAuth = !startedFromMain || localStorage.getItem('bypassAuth') === 'true';
+
+    if (bypassAuth) {
+      console.log('⚠️ Firebase Auth Guard bypassed (opened directly or via bypass flag) in profile.html');
+      populateProfile(null, {
+        name: "Rescue Team Alpha",
+        email: "rescue-alpha@floodrescue.gov",
+        phone: "987-654-3210",
+        role: "rescue",
+        location: "Kamareddy District HQ"
+      });
+
+      document.getElementById("solvedCount").innerText = "2";
+      renderHistory([
+        { createdAt: new Date("2026-10-15"), location: "Secunderabad", priority: "medium" },
+        { createdAt: new Date("2026-11-01"), location: "Hyderabad", priority: "high" }
+      ]);
+    } else {
+      onAuthStateChanged(auth, async (user) => {
+        if (!user) {
+          window.location.href = "../main.html";
+          return;
+        }
+
+        try {
+          const snap = await getDoc(doc(db, "users", user.uid));
+          if (!snap.exists()) {
+            alert("Profile data not found in database");
+            return;
+          }
+
+          const profileData = snap.data();
+          populateProfile(user, profileData);
+
+          // Query completed SOS instances
+          const q = query(collection(db, "sos"), where("status", "==", "completed"));
+          const querySnap = await getDocs(q);
+          const history = [];
+          querySnap.forEach(docSnap => {
+            history.push(docSnap.data());
+          });
+
+          document.getElementById("solvedCount").innerText = history.length;
+          renderHistory(history);
+
+        } catch (err) {
+          console.error("Profile load error:", err);
+        }
+      });
+    }
+
+    // Expose logout globally
+    window.logout = async function() {
+      try {
+        await signOut(auth);
+        localStorage.removeItem('bypassAuth');
+        window.location.href = '../main.html';
+      } catch (err) {
+        console.error(err);
+      }
+    };
+  </script>
+
+  <script>
+    window.goToRescueAlerts = function() {
+      window.location.href = "../alerts/rescue-alerts.html";
+    }
+
+    window.openAI = function() {
+      window.location.href = "../home.html";
+    }
+  </script>
+</body>
+</html>

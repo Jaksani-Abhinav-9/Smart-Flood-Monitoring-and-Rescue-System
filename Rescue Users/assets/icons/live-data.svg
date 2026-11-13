@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none">
+  <defs>
+    <linearGradient id="liveGrad" x1="4" y1="4" x2="20" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#7dd3fc"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+  </defs>
+  <!-- Dish Arc -->
+  <path d="M4 14.5A8.5 8.5 0 0 1 14.5 4" stroke="url(#liveGrad)" stroke-width="2.2" stroke-linecap="round"/>
+  <!-- Feed Horn & Stem -->
+  <line x1="8.5" y1="8.5" x2="13.5" y2="13.5" stroke="#bae6fd" stroke-width="2" stroke-linecap="round"/>
+  <circle cx="8.5" cy="8.5" r="2" fill="#38bdf8" stroke="#bae6fd" stroke-width="1"/>
+  <!-- Stand -->
+  <line x1="14" y1="14" x2="19" y2="19" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M16 20h6" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <!-- Broadcast Signal Waves -->
+  <path d="M12 2a11.5 11.5 0 0 1 10 10" stroke="#7dd3fc" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="1 3"/>
+  <path d="M16 2a15.5 15.5 0 0 1 6 6" stroke="#bae6fd" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Create Account | Flood Rescue</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="welcome-bg allow-scroll">
+
+<!-- Success banner removed (use in-page status instead) -->
+
+  <div class="signup-card">
+
+    <h1>Create Account</h1>
+    <p>Join the Flood Rescue Guidance System</p>
+
+    <button class="btn google-btn" onclick="signupWithGoogle()" type="button" style="width: 100%; margin-top: 10px; margin-bottom: 12px;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo">
+      Continue with Google
+    </button>
+
+    <div id="signupStatus" class="auth-status" aria-live="polite"></div>
+
+    <div class="auth-divider">or</div>
+
+    <div class="input-group">
+      <label class="input-label" for="email">Email Address</label>
+      <div class="input-row">
+        <span class="input-icon">📧</span>
+        <input id="email" class="form-input" type="email" placeholder="Enter your email">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label" for="phone">Phone Number</label>
+      <div class="input-row">
+        <span class="input-icon">📱</span>
+        <input id="phone" class="form-input" type="tel" placeholder="Enter your phone number">
+      </div>
+    </div>
+
+       <div class="input-group" id="passwordGroup">
+      <label class="input-label" for="password">Password</label>
+      <div class="input-row">
+        <span class="input-icon">🔒</span>
+        <input id="password" class="form-input" type="password" placeholder="Password">
+        <span class="password-toggle" onclick="togglePassword('password', this)" aria-hidden="true">👁️</span>
+      </div>
+    </div>
+
+    <div class="input-group" id="confirmPasswordGroup">
+      <label class="input-label" for="confirm">Confirm Password</label>
+      <div class="input-row">
+        <span class="input-icon">🔒</span>
+        <input id="confirm" class="form-input" type="password" placeholder="Confirm password">
+        <span class="password-toggle" onclick="togglePassword('confirm', this)" aria-hidden="true">👁️</span>
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label class="input-label" for="location">Location (City / Area)</label>
+      <div class="input-row">
+        <span class="input-icon">📍</span>
+        <input id="location" class="form-input" type="text" placeholder="Location (City / Area)">
+      </div>
+    </div>
+
+    <div class="input-group">
+      <div class="input-row">
+        <span class="input-icon">📍</span>
+        <button type="button" id="detectBtn" class="location-btn" onclick="getSignupLocation()">Detect Current Location</button>
+      </div>
+    </div>
+
+    <div class="location-card" id="signupLocationCard" aria-hidden="true">
+      <div class="location-card-header">📍 Current Location</div>
+      <div class="location-row"><span>Latitude</span><strong id="signupLat">—</strong></div>
+      <div class="location-row"><span>Longitude</span><strong id="signupLng">—</strong></div>
+      <div class="location-row"><span>Status</span><strong style="color:#7FF0E3">Verified</strong></div>
+    </div>
+
+ 
+
+    <input type="hidden" id="role" value="citizen">
+
+    <button id="signupBtn" class="cta" onclick="signup()">🔐 Create Account</button>
+    <p class="auth-footer hidden-field" id="googleStatusInfo" style="margin-top: 5px; font-size: 13px;">
+      Signed in as <span id="googleEmailSpan" style="color: #8fd3ff; font-weight: 600;"></span>. 
+      <a href="#" onclick="handleGoogleSignOut(event)" style="text-decoration: underline;">Sign out</a>
+    </p>
+
+    <div class="footer">
+      Already have an account? <a href="login.html">Login</a><br>
+      <a href="index.html">← Back to Welcome</a>
+    </div>
+
+  </div>
+
+<!-- FIREBASE SDK -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { 
+  getAuth, 
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+import { 
+  getFirestore, 
+  doc, 
+  setDoc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDDc8peb4i19Rku8smgr5BwLxt0WMB9Gjw",
+  authDomain: "flood-rescue-guide-ac3a8.firebaseapp.com",
+  projectId: "flood-rescue-guide-ac3a8",
+  storageBucket: "flood-rescue-guide-ac3a8.appspot.com",
+  messagingSenderId: "635830559756",
+  appId: "1:635830559756:web:xxxxxx"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+  let googleUser = null;
+
+  // Track state and dynamically toggle visibility
+  onAuthStateChanged(auth, async (user) => {
+    const emailInput = document.getElementById("email");
+    const passwordGroup = document.getElementById("passwordGroup");
+    const confirmPasswordGroup = document.getElementById("confirmPasswordGroup");
+    const signupBtn = document.getElementById("signupBtn");
+    const googleStatusInfo = document.getElementById("googleStatusInfo");
+    const googleEmailSpan = document.getElementById("googleEmailSpan");
+
+    if (user) {
+      googleUser = user;
+      // Pre-fill and lock email field
+      emailInput.value = user.email || "";
+      emailInput.disabled = true;
+
+      // Hide password fields
+      if (passwordGroup) passwordGroup.classList.add("hidden-field");
+      if (confirmPasswordGroup) confirmPasswordGroup.classList.add("hidden-field");
+
+      // Update button text
+      if (signupBtn) signupBtn.innerHTML = "🔐 Complete Registration";
+
+      // Show Google user status
+      if (googleStatusInfo) {
+        googleStatusInfo.classList.remove("hidden-field");
+        googleEmailSpan.textContent = user.email || "";
+      }
+    } else {
+      googleUser = null;
+      // Reset fields
+      emailInput.disabled = false;
+
+      // Show password fields
+      if (passwordGroup) passwordGroup.classList.remove("hidden-field");
+      if (confirmPasswordGroup) confirmPasswordGroup.classList.remove("hidden-field");
+
+      // Restore button text
+      if (signupBtn) signupBtn.innerHTML = "🔐 Create Account";
+
+      // Hide Google user status
+      if (googleStatusInfo) googleStatusInfo.classList.add("hidden-field");
+    }
+  });
+
+  async function handleGoogleSignOut(e) {
+    if (e) e.preventDefault();
+    try {
+      await auth.signOut();
+      setSignupStatus("Signed out of Google account.", false);
+    } catch (err) {
+      console.error(err);
+      setSignupStatus("Error signing out: " + err.message, true);
+    }
+  }
+  window.handleGoogleSignOut = handleGoogleSignOut;
+
+  async function signupWithGoogle() {
+    const btn = document.getElementById("signupBtn");
+    btn.disabled = true;
+    setSignupStatus('Connecting to Google...', false);
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+
+      setSignupStatus('Verifying account details...', false);
+      const userDoc = await getDoc(doc(db, 'users', user.uid));
+      
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        const role = data.role || '';
+        const roleMap = {
+          'citizen': '../Citizen Users/home.html',
+          'volunteer': '../Citizen Users/home.html',
+          'rescue': '../Rescue Users/home.html',
+          'admin': '../Rescue Users/home.html'
+        };
+        
+        if (role && roleMap[role]) {
+          localStorage.setItem('userEmail', user.email);
+          localStorage.setItem('userRole', role);
+          setSignupStatus('Account already exists — logging in...', false);
+          setTimeout(() => { window.location.href = roleMap[role]; }, 900);
+        } else {
+          setSignupStatus('Profile error. Please contact administrator.', true);
+          btn.disabled = false;
+        }
+      } else {
+        // Prepare to fill in details
+        googleUser = user;
+        document.getElementById("email").value = user.email || "";
+        document.getElementById("email").disabled = true;
+        document.getElementById("passwordGroup").classList.add("hidden-field");
+        document.getElementById("confirmPasswordGroup").classList.add("hidden-field");
+        document.getElementById("signupBtn").innerHTML = "🔐 Complete Registration";
+        setSignupStatus('Google authenticated! Please fill out remaining fields.', false);
+        btn.disabled = false;
+      }
+    } catch (err) {
+      console.error(err);
+      btn.disabled = false;
+      const code = err.code || '';
+      if (code === 'auth/popup-closed-by-user') {
+        setSignupStatus('Popup closed before completion.', true);
+      } else {
+        setSignupStatus('Google authentication failed: ' + (err.message || ''), true);
+      }
+    }
+  }
+  window.signupWithGoogle = signupWithGoogle;
+
+  window.signup = async function () {
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const role = "citizen";
+    const password = document.getElementById("password").value;
+    const confirm = document.getElementById("confirm").value;
+    const btn = document.getElementById("signupBtn");
+
+    // Validation
+    if (!email || !location) {
+      setSignupStatus('Please fill all required fields.', true);
+      return;
+    }
+
+    btn.disabled = true;
+
+    if (googleUser) {
+      // Google Signup Path
+      setSignupStatus('Completing registration...', false);
+      try {
+        await setDoc(doc(db, "users", googleUser.uid), {
+          email: googleUser.email,
+          phone: phone,
+          location: location,
+          role: role,
+          createdAt: new Date()
+        });
+
+        localStorage.setItem("userRole", role);
+        localStorage.setItem("userEmail", googleUser.email);
+
+        setTimeout(() => {
+          window.location.href = "../Citizen Users/home.html";
+        }, 1200);
+      } catch (err) {
+        console.error(err);
+        btn.disabled = false;
+        setSignupStatus('Failed to complete registration: ' + (err.message || ''), true);
+      }
+    } else {
+      // Normal Email/Password Signup Path
+      if (!password || !confirm) {
+        setSignupStatus('Please fill in password fields.', true);
+        btn.disabled = false;
+        return;
+      }
+      if (password !== confirm) {
+        setSignupStatus('Passwords do not match. Please re-enter both fields.', true);
+        btn.disabled = false;
+        return;
+      }
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(async (userCredential) => {
+          const user = userCredential.user;
+
+          await setDoc(doc(db, "users", user.uid), {
+            email: email,
+            phone: phone,
+            location: location,
+            role: role,
+            createdAt: new Date()
+          });
+
+          localStorage.setItem("userRole", role);
+          localStorage.setItem("userEmail", email);
+
+          setTimeout(() => {
+            window.location.href = "../Citizen Users/home.html";
+          }, 1200);
+        })
+        .catch(err => {
+          btn.disabled = false;
+          const code = err && err.code ? err.code : '';
+          let message = err && err.message ? err.message : 'An error occurred. Please try again.';
+
+          if (code === 'auth/email-already-in-use') {
+            message = 'This email is already registered. Please login instead.';
+          } else if (code === 'auth/weak-password') {
+            message = 'Password is too weak. Use at least 6 characters.';
+          } else if (code === 'auth/invalid-email') {
+            message = 'Invalid email address. Please correct it.';
+          }
+
+          setSignupStatus(message, true);
+        });
+    }
+  };
+
+function setSignupStatus(msg, isError){
+  const el = document.getElementById('signupStatus');
+  if(!el) return;
+  el.textContent = msg;
+  if(isError){
+    el.classList.add('visible');
+    el.style.color = '#ff3333';
+    el.style.fontWeight = '600';
+  } else {
+    el.classList.add('visible');
+    el.style.color = '#BEEAFF';
+    el.style.fontWeight = 'normal';
+  }
+  clearTimeout(window._signupStatusTimer);
+  window._signupStatusTimer = setTimeout(()=>{ el.classList.remove('visible'); }, 5000);
+}
+
+window.getSignupLocation = function(){
+  const detectBtn = document.getElementById('detectBtn');
+  detectBtn.disabled = true;
+  detectBtn.textContent = 'Detecting...';
+
+  if(!navigator.geolocation){
+    alert('Geolocation not supported in this browser.');
+    detectBtn.disabled = false;
+    detectBtn.textContent = 'Detect Current Location';
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(pos => {
+    const lat = pos.coords.latitude.toFixed(6);
+    const lng = pos.coords.longitude.toFixed(6);
+    document.getElementById('signupLat').textContent = lat;
+    document.getElementById('signupLng').textContent = lng;
+    document.getElementById('signupLocationCard').classList.add('visible');
+    document.getElementById('location').value = lat + ', ' + lng;
+    detectBtn.disabled = false;
+    detectBtn.textContent = 'Detect Current Location';
+  }, err => {
+    alert('Unable to retrieve location: ' + err.message);
+    detectBtn.disabled = false;
+    detectBtn.textContent = 'Detect Current Location';
+  }, {enableHighAccuracy:true, timeout:10000});
+}
+
+// Toggle password visibility helper
+window.togglePassword = function(inputId, btn) {
+  const el = document.getElementById(inputId);
+  if (!el) return;
+  if (el.type === 'password') {
+    el.type = 'text';
+    btn.textContent = '🙈';
+  } else {
+    el.type = 'password';
+    btn.textContent = '👁️';
+  }
+}
+</script>
+
+</body>
+</html>

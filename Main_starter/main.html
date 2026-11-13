@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Flood Rescue App — Smart Flood Safety & Rescue System</title>
+  <meta name="description"
+    content="Real-time flood monitoring, one-tap SOS emergency alerts, and rescue coordination. Built for rapid flood response and community safety.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="premium-landing.css">
+  <link rel="stylesheet" href="sos-button-states.css?v=3">
+</head>
+
+<body>
+  <div class="landing-wrapper">
+
+    <!-- ====== HERO ====== -->
+    <section class="hero-section" aria-label="Hero">
+      <div class="landing-card hero-card">
+        <img src="assets/logo.png" alt="Smart Flood Rescue Logo" class="logo-img-small" width="64" height="64">
+        <h1 class="app-title">Flood Rescue App</h1>
+        <p class="app-subtitle">Real-time flood monitoring, one-tap SOS alerts, and coordinated rescue — keeping
+          communities safe when it matters most.</p>
+
+        <div class="button-group">
+          <button id="login-btn" class="btn btn-primary" onclick="goLogin()" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+              <polyline points="10 17 15 12 10 7" />
+              <line x1="15" y1="12" x2="3" y2="12" />
+            </svg>
+            Login
+          </button>
+          <button id="signup-btn" class="btn btn-secondary" onclick="goSignup()" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="8.5" cy="7" r="4" />
+              <line x1="20" y1="8" x2="20" y2="14" />
+              <line x1="23" y1="11" x2="17" y2="11" />
+            </svg>
+            Create Account
+          </button>
+          <button id="landing-sos-btn" class="sos-btn sos-idle" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+              <line x1="12" y1="9" x2="12" y2="13" />
+              <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Emergency SOS
+          </button>
+        </div>
+      </div>
+
+      <!-- Dashboard Preview -->
+      <div class="dashboard-panel">
+        <div class="browser-frame">
+          <div class="frame-bar">
+            <div class="window-dots">
+              <span></span><span></span><span></span>
+            </div>
+            <div class="frame-url">flood-rescue.app</div>
+            <div class="live-badge">LIVE</div>
+          </div>
+          <div class="browser-body">
+            <img src="assets/dashboard-preview.jpg"
+              alt="Real-time flood monitoring dashboard showing map with rescue zones, alerts, and active monitoring panels"
+              class="dashboard-preview" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== FEATURES ====== -->
+    <section class="feature-strip" aria-label="Key features">
+      <div class="feature-item">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+        </div>
+        <h3 class="feature-title">Live Tracking</h3>
+        <p class="feature-desc">GPS-powered location sharing with rescue teams for real-time coordination</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon feature-icon--amber">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+            <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+          </svg>
+        </div>
+        <h3 class="feature-title">Instant Alerts</h3>
+        <p class="feature-desc">Flood warnings and evacuation notices pushed directly to your device</p>
+      </div>
+
+      <div class="feature-item">
+        <div class="feature-icon feature-icon--red">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.93 4.93l14.14 14.14" />
+            <path d="M14.83 9.17a4 4 0 1 1-5.66 5.66" />
+            <circle cx="12" cy="12" r="10" />
+          </svg>
+        </div>
+        <h3 class="feature-title">One-Tap SOS</h3>
+        <p class="feature-desc">Emergency help request with auto-location sent to nearest rescue units</p>
+      </div>
+    </section>
+
+    <!-- ====== STATS ====== -->
+    <div class="stats-bar" aria-label="Platform statistics">
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Monitoring</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">&lt;30s</div>
+        <div class="stat-label">SOS Response</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">Live</div>
+        <div class="stat-label">Flood Map</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">100%</div>
+        <div class="stat-label">Free to Use</div>
+      </div>
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <p class="footer-tagline">Built for rapid flood response &amp; community safety</p>
+
+    <div class="wave-shape" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,56 C180,120 360,0 540,40 C720,80 900,120 1080,56 C1260,-8 1440,64 1440,64 L1440,120 L0,120 Z"
+          fill="rgba(79,195,247,0.04)"></path>
+      </svg>
+    </div>
+  </div>
+
+  <script>
+    sessionStorage.setItem('startedFromMain', 'true');
+
+    function goLogin() {
+      window.location.href = "login.html";
+    }
+
+    function goSignup() {
+      window.location.href = "signup.html";
+    }
+
+    function navigateSOS() {
+      window.location.href = "citizen-home/sos.html";
+    }
+  </script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDDc8peb4i19Rku8smgr5BwLxt0WMB9Gjw",
+      authDomain: "flood-rescue-guide-ac3a8.firebaseapp.com",
+      projectId: "flood-rescue-guide-ac3a8",
+      storageBucket: "flood-rescue-guide-ac3a8.appspot.com",
+      messagingSenderId: "635830559756",
+      appId: "1:635830559756:web:xxxxxxxxxxxxxxxx"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    window.firebase = firebase;
+    window.db = firebase.firestore();
+  </script>
+  <script src="sos-geolocation.js"></script>
+  <script>
+    const landingSosBtn = document.getElementById('landing-sos-btn');
+    if (landingSosBtn) {
+      landingSosBtn.addEventListener('click', function () {
+        triggerOneTapSOS(this, async (sosData) => {
+          await sendSOSToBackend(sosData);
+        });
+      });
+    }
+  </script>
+</body>
+
+</html>

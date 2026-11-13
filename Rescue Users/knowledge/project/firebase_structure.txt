@@ -1,0 +1,18 @@
+Project Firebase Configuration (Identified from Existing Codebase):
+- Firebase Project ID: flood-rescue-guide-ac3a8
+- Firebase Auth Domain: flood-rescue-guide-ac3a8.firebaseapp.com
+- Firebase Services in use: Firestore, Firebase Authentication
+
+Confirmed Firestore Collections (identified from docs/ source code):
+- 'sos': Active SOS alerts created by citizens. Fields include: name, location, lat, lng, status, priority.
+- 'users': User profile documents. Fields include: name, email, phone, role, location.
+
+Firebase Authentication:
+- Email/Password login
+- Google Sign-In (when domain permits)
+- Role-based access ('citizen' or 'rescue') stored in Firestore 'users' collection.
+
+IoT Sensor Data Path:
+- [PLACEHOLDER] The Firestore collection path for Arduino/LoRa sensor telemetry has NOT been confirmed.
+- This must be determined once the hardware integration is complete.
+- Do not assume a specific path.

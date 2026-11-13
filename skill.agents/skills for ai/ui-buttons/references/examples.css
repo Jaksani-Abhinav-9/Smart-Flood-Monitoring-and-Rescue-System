@@ -1,0 +1,87 @@
+/* ============================================================
+   UI Buttons - Starter Examples
+   Three additional styles beyond the youneslaaroussi/ui-buttons
+   catalog. Vanilla CSS only - no JS required.
+   ============================================================ */
+
+/* 1. Tactile Retro Push Down
+   Thick hard shadow beneath the button creates physical depth.
+   On click, the button shifts down by the shadow's height. */
+.btn-3d-retro {
+  position: relative;
+  background: #0969da;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #044087;
+  transition: all 0.1s ease;
+}
+.btn-3d-retro:hover {
+  background: #0a73ea;
+}
+.btn-3d-retro:active {
+  transform: translateY(6px);
+  box-shadow: 0 0px 0 #044087;
+}
+
+/* 2. Claymorphism (Soft Capsule)
+   Inset shadows create a soft, inflated, tangible look. */
+.btn-3d-clay {
+  background: #ff6b6b;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 35px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  outline: none;
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.15),
+    inset 0 4px 6px rgba(255, 255, 255, 0.6),
+    inset 0 -6px 10px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.btn-3d-clay:hover {
+  transform: scale(1.05);
+}
+.btn-3d-clay:active {
+  transform: scale(0.98);
+  box-shadow:
+    0 5px 10px rgba(0, 0, 0, 0.15),
+    inset 0 2px 4px rgba(255, 255, 255, 0.6),
+    inset 0 -3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* 3. Isometric Glow Lift
+   Tilts the button using CSS perspective, lifting it higher
+   on hover with an increasing glow shadow. Wrap in a container
+   with `perspective` set. */
+.isometric-container {
+  perspective: 500px;
+}
+.btn-3d-iso {
+  background: #2ea043;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 15px 30px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transform: rotateX(20px);
+  box-shadow: 0 5px 15px rgba(46, 160, 67, 0.4);
+  transition: all 0.3s ease;
+}
+.btn-3d-iso:hover {
+  transform: rotateX(20px) translateY(-5px);
+  box-shadow: 0 15px 25px rgba(46, 160, 67, 0.6);
+}
+.btn-3d-iso:active {
+  transform: rotateX(20px) translateY(1px);
+  box-shadow: 0 3px 10px rgba(46, 160, 67, 0.4);
+}

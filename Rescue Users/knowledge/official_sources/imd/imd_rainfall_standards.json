@@ -1,0 +1,65 @@
+{
+  "source_metadata": {
+    "organization": "India Meteorological Department (IMD), Ministry of Earth Sciences, Govt. of India",
+    "title": "Standard Hydrometeorological Rainfall Classification and Color-Coded Warning System",
+    "url": "https://mausam.imd.gov.in",
+    "version": "IMD-MET-STANDARDS-2024",
+    "category": "Meteorological Warning Classification",
+    "data_type": "STATIC_KNOWLEDGE",
+    "verification_status": "VERIFIED_OFFICIAL"
+  },
+  "rainfall_intensity_categories_24h": {
+    "Very_Light_Rain": {
+      "min_mm": 0.1,
+      "max_mm": 2.4,
+      "description": "Negligible runoff, normal urban drainage handles with zero accumulation."
+    },
+    "Light_Rain": {
+      "min_mm": 2.5,
+      "max_mm": 15.5,
+      "description": "Minor puddling, low saturation rate."
+    },
+    "Moderate_Rain": {
+      "min_mm": 15.6,
+      "max_mm": 64.4,
+      "description": "Moderate runoff, culverts and drains begin filling. Saturated soil risk in hilly tracts."
+    },
+    "Heavy_Rain": {
+      "min_mm": 64.5,
+      "max_mm": 115.5,
+      "description": "High runoff, waterlogging in low-lying roads, rising levels in local tanks and nullahs."
+    },
+    "Very_Heavy_Rain": {
+      "min_mm": 115.6,
+      "max_mm": 204.4,
+      "description": "Extensive inundation, culvert washouts, flash flooding in natural drainage corridors."
+    },
+    "Extremely_Heavy_Rain": {
+      "min_mm": 204.5,
+      "max_mm": null,
+      "description": "Catastrophic flooding, reservoir discharge spikes, embankment breaches, widespread structural inundation."
+    }
+  },
+  "color_coded_alerts": {
+    "Green": {
+      "label": "No Warning",
+      "action": "No advisory. Standard operational monitoring."
+    },
+    "Yellow": {
+      "label": "Be Aware",
+      "action": "Watch condition. Severe weather expected that could disrupt low-lying transit corridors."
+    },
+    "Orange": {
+      "label": "Be Prepared",
+      "action": "Alert condition. High disruption risk; pre-position rescue teams, check OBMs and staging areas."
+    },
+    "Red": {
+      "label": "Take Action",
+      "action": "Warning condition. Extreme weather imminent; initiate mandatory evacuations in vulnerable zones, full emergency deployment."
+    }
+  },
+  "nowcast": {
+    "validity_window": "Up to 3 hours from issuance",
+    "purpose": "Detect rapid convective storm cells and localized flash-flood cloudburst events."
+  }
+}

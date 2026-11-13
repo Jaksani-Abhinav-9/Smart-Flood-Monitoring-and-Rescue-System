@@ -1,0 +1,34 @@
+{
+  "source_metadata": {
+    "organization": "Central Water Commission (CWC), Ministry of Jal Shakti, Govt. of India",
+    "title": "River Water Level Tiers, Flood Forecasting Stages and Hydro-Observation Protocols",
+    "url": "https://cwc.gov.in",
+    "version": "CWC-FF-GUIDELINES-2023",
+    "category": "Hydrological Warning Standards",
+    "data_type": "STATIC_KNOWLEDGE",
+    "verification_status": "VERIFIED_OFFICIAL"
+  },
+  "water_level_stages": {
+    "Normal_Flood_Situation": {
+      "criteria": "River stage is below Warning Level (WL).",
+      "operational_meaning": "River within normal embankments; routine gauge reading."
+    },
+    "Above_Normal_Flood_Situation": {
+      "criteria": "River stage >= Warning Level (WL) and < Danger Level (DL).",
+      "operational_meaning": "Water reaching floodplain fringes; alert district authorities to restrict riverbank access and prepare relief camps."
+    },
+    "Severe_Flood_Situation": {
+      "criteria": "River stage >= Danger Level (DL) and < Highest Flood Level (HFL).",
+      "operational_meaning": "Active bank overflow, inundation of adjacent residential and agricultural settlements. Immediate rescue team deployment."
+    },
+    "Extreme_Flood_Situation": {
+      "criteria": "River stage >= Highest Flood Level (HFL).",
+      "operational_meaning": "All-time record flood stage. CWC issues mandatory 'Red Bulletin' hourly. Massive evacuation and catastrophic breach protocols activated."
+    }
+  },
+  "rate_of_rise_guidelines": {
+    "slow_rise": "< 5 cm/hour (gradual accumulation, ample evacuation window)",
+    "rapid_rise": "5 to 20 cm/hour (flashy watershed response, expedited extraction)",
+    "flash_rise": "> 20 cm/hour (dam gate release or cloudburst, immediate siren escalation, vertical evacuation only)"
+  }
+}

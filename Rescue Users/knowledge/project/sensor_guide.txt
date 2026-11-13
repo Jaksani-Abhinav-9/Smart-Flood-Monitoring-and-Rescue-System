@@ -1,0 +1,14 @@
+Project Sensor Specifications:
+[PLACEHOLDER - REQUIRES CONFIGURATION]
+The following thresholds are provisional and based on initial estimates only.
+Official project thresholds must be validated once the hardware sensor calibration is complete.
+
+Provisional water-level alert levels (subject to change):
+- Safe: <= 1.5 meters
+- Warning: > 1.5 meters and <= 2.5 meters  
+- Danger: > 2.5 meters
+
+Hardware integration:
+- Sensor data is intended to be sent via Arduino/LoRa to the Firebase Firestore collection.
+- IoT sensor hardware integration with the AI agent is NOT yet active.
+- When active, the Firestore collection path to be used is: 'sos' (existing SOS data) and sensor telemetry collection (TBD based on project hardware setup).

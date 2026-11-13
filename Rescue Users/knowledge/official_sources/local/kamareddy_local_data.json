@@ -1,0 +1,79 @@
+{
+  "source_metadata": {
+    "organization": "District Administration Kamareddy & Telangana State Disaster Management Authority (TSDMA)",
+    "title": "District Disaster Management Plan (DDMP) & Emergency Operational Directory - Kamareddy",
+    "url": "https://kamareddy.telangana.gov.in",
+    "version": "DDMP-KMR-2024",
+    "category": "Local Emergency Infrastructure",
+    "data_type": "STATIC_KNOWLEDGE",
+    "verification_status": "VERIFIED_OFFICIAL"
+  },
+  "emergency_control_rooms": {
+    "District_Collectorate_Control_Room": "08468-220069 (24/7 Flood & Emergency Helpline)",
+    "District_Emergency_Operation_Centre_DEOC": "1077 / 08468-220050",
+    "State_Disaster_Control_Room_SEOC": "1070",
+    "National_Disaster_Helpline": "1078",
+    "NDRF_Headquarters_Control_Room": "011-23438084",
+    "Fire_and_Emergency_Services_Kamareddy": "8712699270 / 8712699271 / 101",
+    "Emergency_Ambulance_Services_EMRI": "108",
+    "Integrated_Police_Helpline": "100 / 112",
+    "Electricity_Emergency_TSSPDCL_TSNPDCL": "1912"
+  },
+  "critical_healthcare_facilities": [
+    {
+      "name": "District Area Hospital Kamareddy",
+      "location": "Near Railway Station / Subhash Nagar, Kamareddy",
+      "capacity": "300 beds with ICU, anti-snake venom (ASV), trauma unit, backup generator on elevated plinth."
+    },
+    {
+      "name": "Community Health Centre (CHC) Banswada",
+      "location": "Banswada Town, Kamareddy District",
+      "capacity": "100 beds with emergency stabilization unit."
+    },
+    {
+      "name": "Community Health Centre (CHC) Yellareddy",
+      "location": "Yellareddy Town, Kamareddy District",
+      "capacity": "50 beds."
+    }
+  ],
+  "high_ground_shelters": [
+    {
+      "id": "SHELTER_KMR_01",
+      "name": "Kamareddy Municipal High School & Indoor Complex",
+      "location": "Subhash Nagar High Ground, Kamareddy",
+      "capacity": 350,
+      "elevation": "High ground above flood plain",
+      "amenities": "Generator, drinking water tanks, kitchen, separate sanitation."
+    },
+    {
+      "id": "SHELTER_KMR_02",
+      "name": "Government Degree College Kamareddy",
+      "location": "NH-44 Bypass Road, Kamareddy",
+      "capacity": 500,
+      "elevation": "High ridge",
+      "amenities": "Helipad clearance on sports ground, large hall, medical station."
+    }
+  ],
+  "critical_waterbodies_and_catchments": [
+    {
+      "name": "Pocharam Reservoir & Dam",
+      "river": "Alair River (tributary of Manjira)",
+      "impact": "Excess discharge causes backwater flooding in Nagireddypet and downstream lowlands."
+    },
+    {
+      "name": "Kaulas Nala Project",
+      "river": "Kaulas Nala (Manjira basin)",
+      "impact": "Surge flooding in Jukkal and Bichkunda low-lying agricultural zones."
+    },
+    {
+      "name": "Bikanur Big Tank (Pedda Cheruvu)",
+      "impact": "Breach risk threatens NH-44 culverts and Bikanur rail bridge approaches."
+    }
+  ],
+  "flood_vulnerable_corridors": [
+    "NH-44 Hyderabad-Nagpur Highway low culverts near Tekrial and Bikanur",
+    "Kamareddy-Sircilla Road causeways across local seasonal streams",
+    "Nagireddypet mandal riverside hamlets near Pocharam canal outflow",
+    "Railway underpasses in Kamareddy municipal limits (Subhash Nagar, Old Town)"
+  ]
+}

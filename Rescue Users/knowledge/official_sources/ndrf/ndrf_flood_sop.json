@@ -1,0 +1,57 @@
+{
+  "source_metadata": {
+    "organization": "National Disaster Response Force (NDRF), Ministry of Home Affairs, Govt. of India",
+    "title": "Standard Operating Procedure (SOP) for Flood Disaster Response & Aquatic Search and Rescue",
+    "url": "https://ndrf.gov.in",
+    "version": "NDRF-FWR-SOP-Rev2023",
+    "category": "Flood Disaster Response SOP",
+    "data_type": "STATIC_KNOWLEDGE",
+    "verification_status": "VERIFIED_OFFICIAL"
+  },
+  "principles": [
+    "Human life preservation is paramount over property salvage.",
+    "Rescuer safety precedes victim extraction; an incapacitated rescuer compounds the disaster.",
+    "Incident Command System (ICS) structure must be established with unified command at Staging Area.",
+    "Strict boat capacity enforcement: never exceed rated payload under pressure of panicked survivors."
+  ],
+  "operational_phases": {
+    "Phase_1_Alert_and_Mobilization": {
+      "actions": [
+        "DEOC/SEOC activation upon IMD heavy rain warning or CWC river level alert.",
+        "Readiness of Flood Rescue Teams (FRTs) within 15 minutes of alert order.",
+        "Inventory verification: IRB hull pressure (0.2-0.25 bar), OBM spark plugs, fuel mix (petrol:2T oil @ 50:1), Type V PFDs, throw bags, VHF sets."
+      ]
+    },
+    "Phase_2_Reconnaissance_and_Triage": {
+      "actions": [
+        "Establish Forward Operating Base (FOB) on non-inundated high ground.",
+        "Aerial or boat reconnaissance to map flood extent, submerged obstacles, and isolated clusters.",
+        "Triage assignment: RED (immediate life threat, <20 min target), YELLOW (vulnerable/urgent, <45-60 min target), GREEN (stable sheltered, scheduled sweep)."
+      ]
+    },
+    "Phase_3_Extraction_and_Containment": {
+      "actions": [
+        "Deploy IRBs in pairs (buddy boat system) for mutual safety.",
+        "Approach stranded victims bow-first into the water current to maintain steerage and prevent broaching.",
+        "Enforce Type V/III PFD donning on all survivors prior to boarding.",
+        "Perform continuous propeller guard checks for weeds, plastic, and debris fouling."
+      ]
+    },
+    "Phase_4_Staging_and_Handover": {
+      "actions": [
+        "Transfer casualties to Medical First Responder (MFR) triage at Staging Assembly Point.",
+        "Immediate hypothermia mitigation: strip wet clothing, wrap in space blanket, core rewarming.",
+        "Escalation to 108 GVK EMRI ambulances for critical care transport to District Hospital."
+      ]
+    }
+  },
+  "swiftwater_limits": {
+    "safe_threshold_knots": 4.0,
+    "safe_threshold_mps": 2.06,
+    "caution_threshold_knots": 8.0,
+    "caution_threshold_mps": 4.12,
+    "absolute_limit_knots": 15.0,
+    "absolute_limit_mps": 7.72,
+    "action_on_exceeding_15_knots": "STRICT BOAT STAND-DOWN. Transition to IAF helicopter winch extraction or high-line rope rigging from dry banks."
+  }
+}

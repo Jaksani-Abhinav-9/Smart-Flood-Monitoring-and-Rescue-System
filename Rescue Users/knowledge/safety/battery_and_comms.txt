@@ -1,0 +1,29 @@
+==============================================================================
+FLOOD RESCUE SYSTEM - BATTERY CONSERVATION & EMERGENCY COMMUNICATIONS
+Protocols for Extending Phone Lifespan to 72 Hours & Off-Grid Signal Practices
+==============================================================================
+
+1. EXTREME SMARTPHONE BATTERY EXTENSION (THE 72-HOUR PROTOCOL)
+During disaster-induced grid power outages, a smartphone is your lifeline for SOS signaling, location tracking, and emergency alerts. Follow these power-saving steps immediately upon alert:
+- Activate Maximum / Ultra Battery Saver Mode: Restricts background sync, limits CPU speed, and halts non-critical apps.
+- Display Settings: Lower screen brightness to minimum (10-15%). Switch display mode to Grayscale / Dark Mode (reduces OLED/AMOLED panel power consumption by up to 60%). Set screen timeout to 15 seconds.
+- Turn Off Radios: Turn off Wi-Fi, Bluetooth, Mobile Hotspot, NFC, and automatic location scanning. Keep GPS active only when transmitting SOS in the FloodGuard app or sharing location with 112/108 operators.
+- Disable Haptics & Vibration: Vibration motors consume significantly more battery per second than ringtones. Disable keyboard haptic feedback and notification vibrations.
+- Airplane Mode Strategy: In weak signal areas where floodwater has inundated cell towers, phones boost transmission power to maximum searching for towers, draining battery in 3 to 4 hours. Keep your phone in Airplane Mode and toggle it ON for only 2 to 3 minutes every hour to check for incoming alerts or send status SMS.
+
+2. SMS TEXTING VS VOICE CALLS DURING CELL NETWORK CONGESTION
+During major floods, voice telephone lines quickly become overloaded with thousands of simultaneous calls, causing network failure and fast busy tones.
+- Always Send SMS: An SMS text message requires less than 1 kilobyte of network bandwidth (compared to continuous voice megabytes). An SMS packet will automatically queue in the telecom system and deliver as soon as a cell tower connection flickers for even 1 single second.
+- Text Content Template: Keep text messages short and factual: "Safe on roof at [Address/Landmark]. [X] people safe. Battery at [X]%. Will check phone next at [Time, e.g. 4:00 PM]."
+- Out-of-State / Long-Distance Contact: Designate one family member who lives outside the disaster zone as the central family communication anchor. Local family members often cannot connect to each other locally, but outbound long-distance SMS typically succeeds.
+
+3. PHYSICAL PHONE PROTECTION & WATERPROOFING
+- Zip-Lock Pouch: Keep your phone, power bank, and charging cable sealed inside two nested ziploc plastic bags. Touchscreens work through thin clear plastic, allowing you to use the screen without exposing the charging port to rain or flood splash.
+- Moisture Exposure: If your phone accidentally drops into floodwater, turn it off immediately. Do NOT plug it into a charger, and do NOT turn it back on. Dry exterior surfaces with a clean cloth. Do not use hair dryers (which melt internal adhesive) or ovens. Allow the device to air dry in a well-ventilated spot for at least 24 to 48 hours before testing.
+
+4. NON-DIGITAL SIGNALING ALTERNATIVES WHEN BATTERIES DIE
+If phone batteries are exhausted before rescue arrives:
+- Whistle: 3 sharp blasts every 2 to 3 minutes.
+- Reflective Mirror / Phone Glass: During daytime breaks in cloud cover, use the glass screen of a dead phone or a pocket mirror to flash reflected sunlight towards rescue boats and helicopters.
+- Roof Banner / Clothing: Hang bright red, yellow, or orange sarees, bedsheets, or towels from the highest railing or terrace pole.
+- Auditory Rhythm: If no whistle is available, bang a metal pot or spoon against a metal railing in sets of 3 distinct clangs (clang - clang - clang).

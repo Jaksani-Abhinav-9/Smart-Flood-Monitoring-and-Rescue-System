@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>LoRa Live Data | Smart Flood Monitoring and Rescue System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="assets/Flood Rescue Monitoring Emblem.png">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap"
+    rel="stylesheet">
+
+  <!-- Shared premium styles -->
+  <link rel="stylesheet" href="css/home.css">
+  <script src="js/touch-keyboard.js" defer></script>
+
+  <style>
+    * {
+      font-family: 'Inter', 'Poppins', sans-serif;
+    }
+
+    body {
+      overflow-y: auto;
+      background:
+        radial-gradient(60% 50% at 15% 8%, rgba(239, 68, 68, 0.08) 0%, transparent 60%),
+        radial-gradient(50% 45% at 90% 12%, rgba(6, 182, 212, 0.08) 0%, transparent 65%),
+        radial-gradient(70% 60% at 50% 100%, rgba(15, 23, 42, 0.6) 0%, transparent 60%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .app-shell {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content-shell {
+      padding: 92px 24px 40px 280px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      max-width: 1440px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 960px) {
+      .content-shell {
+        padding-left: 24px;
+      }
+
+      .sidebar-panel {
+        display: none;
+      }
+    }
+
+    /* Page Header */
+    .telemetry-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      padding: 24px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(14, 21, 37, 0.94), rgba(8, 13, 24, 0.92));
+      border: 1px solid rgba(56, 189, 248, 0.18);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .telemetry-title h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 700;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .telemetry-title p {
+      margin: 6px 0 0 0;
+      color: #94a3b8;
+      font-size: 0.92rem;
+    }
+
+    .telemetry-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-live {
+      background: rgba(16, 185, 129, 0.16);
+      border-color: rgba(16, 185, 129, 0.35);
+      color: #34d399;
+    }
+
+    .btn-live.active {
+      background: rgba(16, 185, 129, 0.25);
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-sim {
+      background: rgba(239, 68, 68, 0.16);
+      border-color: rgba(239, 68, 68, 0.35);
+      color: #fca5a5;
+    }
+
+    .btn-sim:hover {
+      background: rgba(239, 68, 68, 0.25);
+      transform: translateY(-1px);
+    }
+
+    /* KPI Metrics Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .kpi-card {
+      padding: 20px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(14, 21, 37, 0.9), rgba(8, 13, 24, 0.85));
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .kpi-label {
+      font-size: 0.76rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .kpi-sub {
+      font-size: 0.8rem;
+      color: #64748b;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Node Cards Grid */
+    .nodes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 16px;
+    }
+
+    .node-card {
+      padding: 18px;
+      border-radius: 16px;
+      background: rgba(14, 21, 37, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: all 0.2s ease;
+    }
+
+    .node-card:hover {
+      border-color: rgba(56, 189, 248, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .node-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .node-name {
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .node-status-pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .status-normal {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .status-warning {
+      background: rgba(245, 158, 11, 0.15);
+      color: #fbbf24;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .status-critical {
+      background: rgba(239, 68, 68, 0.18);
+      color: #f87171;
+      border: 1px solid rgba(239, 68, 68, 0.35);
+      animation: pulseAlert 1.8s infinite;
+    }
+
+    @keyframes pulseAlert {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+      }
+    }
+
+    .node-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 10px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .node-stat-item span {
+      display: block;
+      font-size: 0.7rem;
+      color: #94a3b8;
+    }
+
+    .node-stat-item strong {
+      font-size: 0.9rem;
+      color: #f8fafc;
+      font-family: 'IBM Plex Mono', monospace;
+    }
+
+    /* Live Telemetry Table */
+    .stream-section {
+      padding: 24px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(14, 21, 37, 0.94), rgba(8, 13, 24, 0.92));
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .stream-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .stream-header h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f8fafc;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    table.packet-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    table.packet-table th {
+      padding: 12px 14px;
+      background: rgba(0, 0, 0, 0.35);
+      color: #94a3b8;
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    table.packet-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      color: #e2e8f0;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    table.packet-table tr:hover td {
+      background: rgba(56, 189, 248, 0.04);
+    }
+
+    .badge-tag {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .badge-critical {
+      background: rgba(239, 68, 68, 0.2);
+      color: #fca5a5;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+
+    .badge-warning {
+      background: rgba(245, 158, 11, 0.2);
+      color: #fcd34d;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+
+    .badge-normal {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ee7b7;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .btn-ai-query {
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: linear-gradient(135deg, rgba(239, 68, 68, 0.25), rgba(185, 28, 28, 0.2));
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.18s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .btn-ai-query:hover {
+      background: rgba(239, 68, 68, 0.4);
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app-shell">
+
+    <!-- TOP BAR -->
+    <section class="top-bar" aria-label="App status bar">
+      <div class="brand">
+        <img src="assets/Flood Rescue Monitoring Emblem.png" alt="Rescue Logo" class="brand-logo" />
+        <span>Smart Flood Rescue Dashboard</span>
+      </div>
+
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+        <!-- Clean Refresh Icon Button (No Text) -->
+        <button id="dashboardRefreshBtn" type="button" onclick="window.location.reload()"
+          title="Refresh Dashboard"
+          style="width:34px;height:34px;border-radius:50%;background:rgba(15,23,42,0.92);border:1px solid rgba(56,189,248,0.35);color:#e2e8f0;font-size:0.95rem;display:grid;place-items:center;cursor:pointer;transition:all 0.25s ease;backdrop-filter:blur(10px);box-shadow:0 4px 12px rgba(0,0,0,0.35);"
+          onmouseover="this.style.background='rgba(56,189,248,0.2)';this.style.borderColor='rgba(56,189,248,0.6)';this.style.transform='rotate(180deg)';"
+          onmouseout="this.style.background='rgba(15,23,42,0.92)';this.style.borderColor='rgba(56,189,248,0.35)';this.style.transform='rotate(0deg)';">
+          🔄
+        </button>
+        <!-- Real-Time Hardware GPS Pill from Pi -->
+        <div id="topGpsPill" class="connectivity"
+          style="background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.3);color:#fca5a5;"
+          aria-live="polite">
+          <span style="background:#ef4444;" id="topGpsDot"></span>
+          <span id="topGpsText">🛰️ GNSS / Location: Not Connected</span>
+        </div>
+
+        <!-- Real-Time LoRa Hardware Pill from Pi -->
+        <div id="topConnectivityPill" class="connectivity"
+          style="background:rgba(245,158,11,0.12);border:1px solid rgba(245,158,11,0.3);color:#fcd34d;"
+          aria-live="polite">
+          <span style="background:#f59e0b;" id="topConnectivityDot"></span>
+          <span id="topConnectivityText">LoRa Radio: Awaiting Hardware Module</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MAP SHELL LAYOUT (with Sidebar) -->
+    <main class="map-shell" style="overflow-y:auto;display:flex;">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar-panel" aria-label="Main navigation">
+        <div class="sidebar-header">
+          <h2>Quick Actions</h2>
+        </div>
+
+        <nav class="sidebar-list" aria-label="Primary navigation">
+          <button class="sidebar-btn" type="button" onclick="location.href='profile/profile.html'">
+            <span class="icon"><img src="assets/icons/profile.svg" alt="Profile" /></span>
+            <span>Profile</span>
+          </button>
+
+          <button class="sidebar-btn" type="button" onclick="openAI()" style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="display:inline-flex;align-items:center;gap:12px;">
+              <span class="icon"><img src="assets/icons/ai.svg" alt="AI Suggestion" /></span>
+              <span>AI Suggestion</span>
+            </span>
+            <span id="qwenSidebarDot" title="AI Status" style="width:8px;height:8px;border-radius:50%;background:#ef4444;box-shadow:0 0 6px #ef4444;display:inline-block;transition:all 0.3s ease;"></span>
+          </button>
+
+          <button class="sidebar-btn" type="button" onclick="location.href='home.html'">
+            <span class="icon"><img src="assets/icons/home.svg" alt="Home" /></span>
+            <span>Home</span>
+          </button>
+
+          <button class="sidebar-btn" type="button" onclick="location.href='check-sos/rescue.html'">
+            <span class="icon"><img src="assets/icons/sos.svg" alt="CHECK SOS" /></span>
+            <span>CHECK SOS</span>
+          </button>
+
+          <button class="sidebar-btn" type="button" onclick="location.href='alerts/rescue-alerts.html'">
+            <span class="icon"><img src="assets/icons/alerts.svg" alt="Alerts" /></span>
+            <span>Alerts</span>
+          </button>
+
+          <button class="sidebar-btn active" type="button" onclick="location.href='lora-data.html'">
+            <span class="icon"><img src="assets/icons/live-data.svg" alt="Live Data" /></span>
+            <span>Live Data</span>
+          </button>
+        </nav>
+      </aside>
+
+      <!-- CONTENT SHELL -->
+      <div class="content-shell">
+
+        <!-- Back Navigation & Header -->
+        <div style="display:flex;align-items:center;gap:12px;">
+          <button onclick="location.href='home.html'"
+            style="padding:8px 16px;border-radius:999px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:var(--text);font-weight:600;font-size:0.85rem;display:inline-flex;align-items:center;gap:6px;cursor:pointer;">
+            ← Return to Dashboard Map
+          </button>
+        </div>
+
+        <header class="telemetry-header">
+          <div class="telemetry-title">
+            <h1>📡 LoRa Mesh Field Telemetry</h1>
+            <p>Real-time sub-GHz sensor data stream received from decentralized SX1262/SX1276 field nodes across
+              Kamareddy.</p>
+          </div>
+          <div class="telemetry-actions">
+            <button id="streamToggleBtn" class="btn-action btn-live active" onclick="toggleStream()">
+              <span>●</span>
+              <span id="streamStatusText">LoRa Radio: Awaiting Hardware Module</span>
+            </button>
+            <button class="btn-action"
+              style="background:rgba(255,255,255,0.06);color:#f1f5f9;border-color:rgba(255,255,255,0.12);"
+              onclick="ai2.launchTacticalHUD()">
+              <span>🤖</span>
+              <span>AI Risk Analysis</span>
+            </button>
+          </div>
+        </header>
+
+        <!-- KPI Overview Cards (Dynamically populated upon discovery) -->
+        <section class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));">
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Discovered Field Poles</span>
+              <span>📡</span>
+            </div>
+            <div class="kpi-value" id="kpiTotalNodes" style="color:#f8fafc;">0 Discovered</div>
+            <div class="kpi-sub">
+              <span>🌐</span> Auto-scanning SX1262 LoRa Mesh
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Active Transmissions</span>
+              <span>🟢</span>
+            </div>
+            <div class="kpi-value" id="kpiActiveNodes" style="color:#38bdf8;">0 Transmitting</div>
+            <div class="kpi-sub">
+              <span style="color:#10b981;">● Receiver Active</span> · Standby Mode
+            </div>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Field Surge Alert Tally</span>
+              <span>🚨</span>
+            </div>
+            <div class="kpi-value" id="kpiAlertTally" style="font-size:1.35rem;color:#fca5a5;">
+              Listening on LoRa...
+            </div>
+            <div class="kpi-sub" id="kpiAlertSub">
+              <span>⚡</span> Real-time packets will populate here
+            </div>
+          </div>
+
+          <!-- 4th KPI Card: Rescue Team GNSS GPS Telemetry from Pi -->
+          <div class="kpi-card">
+            <div class="kpi-label">
+              <span>Rescue Convoy GNSS (Pi)</span>
+              <span>🛰️</span>
+            </div>
+            <div class="kpi-value" id="kpiGpsCoords" style="font-size:1.15rem;color:#fca5a5;">
+              Not Connected
+            </div>
+            <div class="kpi-sub" id="kpiGpsSub">
+              <span id="kpiGpsFix"><span style="color:#ef4444;">● Not Connected</span> · No GPS Signal</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Field Nodes Status Cards (Rendered on discovery only) -->
+        <section>
+          <div
+            style="font-size:0.9rem;font-weight:700;color:#94a3b8;margin-bottom:14px;text-transform:uppercase;letter-spacing:0.06em;display:flex;justify-content:space-between;align-items:center;">
+            <span>Active LoRa Mesh Nodes (Discovered Field Units)</span>
+            <span style="font-size:0.75rem;color:#38bdf8;font-weight:600;">⚡ Dynamic RF Discovery</span>
+          </div>
+          <div id="nodesGrid" class="nodes-grid">
+
+            <!-- Default Empty / Scanning State: Hidden as soon as any pole transmits -->
+            <div id="noLoraMessage"
+              style="grid-column: 1 / -1; padding: 48px 24px; text-align: center; background: rgba(14, 21, 37, 0.7); border: 1px dashed rgba(56, 189, 248, 0.28); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.4);">
+              <div style="font-size: 2.8rem; margin-bottom: 14px;">📡</div>
+              <div style="font-size: 1.25rem; font-weight: 700; color: #f8fafc; margin-bottom: 8px;">
+                Listening for LoRa Sensor Poles...
+              </div>
+              <p style="margin: 0 auto; max-width: 520px; color: #94a3b8; font-size: 0.92rem; line-height: 1.6;">
+                No field sensor transmissions detected yet. When an emergency pole transmits an over-the-air packet to
+                your Raspberry Pi receiver, its card will dynamically appear here in real time.
+              </p>
+              <div
+                style="margin-top: 18px; display: inline-flex; align-items: center; gap: 8px; padding: 6px 16px; border-radius: 999px; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25); color: #38bdf8; font-size: 0.8rem; font-weight: 600;">
+                <span
+                  style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#38bdf8;box-shadow:0 0 8px #38bdf8;"></span>
+                RF Receiver Online (SX1262 · 868 / 433 MHz)
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- RESCUE TACTICAL AI MODAL -->
+  <div id="rescueAIOverlay"
+    style="display:none;position:fixed;inset:0;background:rgba(2,6,14,0.82);backdrop-filter:blur(10px);z-index:3000;align-items:center;justify-content:center;padding:16px;">
+    <div
+      style="background:linear-gradient(180deg, rgba(11,16,28,0.98), rgba(6,10,18,0.98));border:1px solid rgba(239,68,68,0.35);border-radius:22px;width:min(94vw,820px);height:min(88vh,660px);display:flex;flex-direction:column;box-shadow:0 30px 90px rgba(0,0,0,0.85), 0 0 35px rgba(239,68,68,0.15);overflow:hidden;">
+
+      <div
+        style="display:flex;justify-content:space-between;align-items:center;padding:18px 24px;border-bottom:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.02);">
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div
+            style="width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,rgba(239,68,68,0.2),rgba(220,38,38,0.1));border:1px solid rgba(239,68,68,0.4);display:grid;place-items:center;font-size:1.4rem;">
+            🛰️
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;">
+            <div>
+              <div style="display:flex;align-items:center;gap:12px;">
+                <h3 style="margin:0;color:#f8fafc;font-size:1.15rem;font-weight:700;">
+                  Rescue Tactical AI
+                </h3>
+                <div id="qwenLiveStatusBadge" style="display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;font-size:0.72rem;font-weight:700;letter-spacing:0.04em;background:rgba(239,68,68,0.12);border:1px solid rgba(239,68,68,0.35);color:#fca5a5;transition:all 0.3s ease;">
+                  <span id="qwenLiveStatusDot" style="width:7px;height:7px;border-radius:50%;background:#ef4444;display:inline-block;box-shadow:0 0 6px #ef4444;"></span>
+                  <span id="qwenLiveStatusText">OFFLINE</span>
+                </div>
+              </div>
+              <p style="margin:2px 0 0;font-size:0.8rem;color:#94a3b8;">Autonomous Operations AI · Field LoRa Ingestion</p>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;">
+          <button type="button" onclick="closeRescueAI()" title="Close"
+            style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#e2e8f0;font-size:1.2rem;display:grid;place-items:center;cursor:pointer;">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <div id="rescueMessages"
+        style="flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding:20px 24px;">
+        <div
+          style="align-self:flex-start;background:rgba(15,23,42,0.75);border:1px solid rgba(56,189,248,0.22);padding:14px 18px;border-radius:16px;max-width:85%;font-size:0.92rem;line-height:1.6;color:#e2e8f0;">
+          <div
+            style="font-weight:700;color:#38bdf8;margin-bottom:6px;display:flex;align-items:center;gap:6px;font-size:0.82rem;text-transform:uppercase;">
+            <span>🛰️</span> LoRa Telemetry Assistant Active
+          </div>
+          Rescue Commander, this AI module is ready to evaluate LoRa field telemetry packets, calculate safe ingress
+          routes, and verify flood surge thresholds.
+        </div>
+      </div>
+
+      <div
+        style="padding:16px 24px;background:rgba(6,10,18,0.95);border-top:1px solid rgba(255,255,255,0.08);display:flex;gap:12px;align-items:center;">
+        <input id="rescueAIInput" type="text"
+          placeholder="Enter tactical directive or query on LoRa telemetry..."
+          style="flex:1;padding:14px 18px;border-radius:12px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);color:#f8fafc;font-size:0.95rem;outline:none;">
+        <button id="rescueAISendBtn" type="button"
+          style="padding:14px 24px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#dc2626);color:#ffffff;border:none;cursor:pointer;font-size:0.95rem;font-weight:700;display:inline-flex;align-items:center;gap:8px;">
+          <span>Send</span>
+          <span>→</span>
+        </button>
+        <button id="rescueAIStopBtn" type="button" onclick="window.ai2 && window.ai2.stopGeneration()" title="Stop AI Response"
+          style="padding:14px 22px;border-radius:12px;background:linear-gradient(135deg,#ef4444,#b91c1c);color:#ffffff;border:1px solid rgba(255,255,255,0.22);cursor:pointer;font-size:0.95rem;font-weight:700;display:none;align-items:center;gap:9px;box-shadow:0 6px 22px rgba(239,68,68,0.45);transition:all 0.2s;white-space:nowrap;">
+          <span style="display:inline-block;width:12px;height:12px;border-radius:2px;background:#ffffff;"></span>
+          <span>Stop</span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= SCRIPTS & SIMULATOR ================= -->
+  <script type="module">
+    import { piBridge } from './js/pi-hardware-bridge.js';
+    import { ai2 } from './js/ai2-interface.js';
+    window.ai2 = ai2;
+    window.piBridge = piBridge;
+
+    // Attach live LoRa telemetry sync from Raspberry Pi hardware bridge
+    piBridge.attachLoRaDashboardSync();
+    piBridge.onStatus((status) => {
+      const streamTxt = document.getElementById('streamStatusText');
+      const topPill = document.getElementById('topConnectivityPill');
+      const topDot = document.getElementById('topConnectivityDot');
+      const topTxt = document.getElementById('topConnectivityText');
+
+      const isLoraPlugged = status.system && status.system.lora_hardware_connected;
+
+      if (isLoraPlugged) {
+        if (topPill) {
+          topPill.style.background = 'rgba(16,185,129,0.12)';
+          topPill.style.borderColor = 'rgba(16,185,129,0.3)';
+          topPill.style.color = '#6ee7b7';
+        }
+        if (topDot) topDot.style.background = '#10b981';
+        if (topTxt) topTxt.textContent = 'LoRa Radio: Hardware Connected · 868 / 433 MHz';
+        if (streamTxt) streamTxt.innerHTML = '🟢 <strong>LoRa Receiver Active:</strong> Listening for field packets';
+      } else {
+        if (topPill) {
+          topPill.style.background = 'rgba(245,158,11,0.12)';
+          topPill.style.borderColor = 'rgba(245,158,11,0.3)';
+          topPill.style.color = '#fcd34d';
+        }
+        if (topDot) topDot.style.background = '#f59e0b';
+        if (topTxt) topTxt.textContent = 'LoRa Radio: No Hardware Connected (Plug in USB/UART LoRa)';
+        if (streamTxt) streamTxt.innerHTML = '⚠️ <strong>LoRa Radio Standby:</strong> Awaiting Hardware Module';
+      }
+    });
+
+    // Attach live GNSS GPS telemetry stream from Raspberry Pi
+    piBridge.onGPS((gps) => {
+      const topGpsPill = document.getElementById('topGpsPill');
+      const topGpsDot = document.getElementById('topGpsDot');
+      const topGpsText = document.getElementById('topGpsText');
+
+      const kpiGpsCoords = document.getElementById('kpiGpsCoords');
+      const kpiGpsFix = document.getElementById('kpiGpsFix');
+      const kpiGpsSpeed = document.getElementById('kpiGpsSpeed');
+
+      const hasLiveFix = gps && gps.lat !== null && gps.lng !== null && gps.lat !== undefined && gps.lng !== undefined && gps.source !== 'NOT_CONNECTED' && gps.source !== 'NO_FIX';
+
+      if (hasLiveFix) {
+        if (topGpsPill) {
+          topGpsPill.style.background = 'rgba(14, 165, 233, 0.14)';
+          topGpsPill.style.borderColor = 'rgba(14, 165, 233, 0.35)';
+          topGpsPill.style.color = '#38bdf8';
+        }
+        if (topGpsDot) topGpsDot.style.background = '#0ea5e9';
+        if (topGpsText) {
+          const isHw = (gps.source && gps.source.toUpperCase().includes('HARDWARE'));
+          const label = isHw ? 'Hardware GNSS Fix' : 'Live Location Fix';
+          topGpsText.innerHTML = `🛰️ <strong>${label}:</strong> ${Number(gps.lat).toFixed(4)}, ${Number(gps.lng).toFixed(4)} (${gps.satellites || 0} Sats)`;
+        }
+
+        if (kpiGpsCoords) {
+          kpiGpsCoords.textContent = `${Number(gps.lat).toFixed(5)}, ${Number(gps.lng).toFixed(5)}`;
+          kpiGpsCoords.style.color = '#38bdf8';
+        }
+        if (kpiGpsFix) {
+          kpiGpsFix.innerHTML = `<span style="color:#10b981;">● ${gps.fix_quality || 'LIVE FIX'}</span> · ${gps.satellites || 0} Sats`;
+        }
+        if (kpiGpsSpeed) {
+          kpiGpsSpeed.textContent = `${gps.speed_kmh || 0} km/h · Heading: ${Math.round(gps.heading_deg || 0)}°`;
+        }
+      } else {
+        // NOT CONNECTED / NO FIX
+        if (topGpsPill) {
+          topGpsPill.style.background = 'rgba(239, 68, 68, 0.12)';
+          topGpsPill.style.borderColor = 'rgba(239, 68, 68, 0.3)';
+          topGpsPill.style.color = '#fca5a5';
+        }
+        if (topGpsDot) topGpsDot.style.background = '#ef4444';
+        if (topGpsText) {
+          topGpsText.innerHTML = `🛰️ <strong>GNSS / Location:</strong> Not Connected`;
+        }
+
+        if (kpiGpsCoords) {
+          kpiGpsCoords.textContent = `Not Connected`;
+          kpiGpsCoords.style.color = '#fca5a5';
+        }
+        if (kpiGpsFix) {
+          kpiGpsFix.innerHTML = `<span style="color:#ef4444;">● Not Connected</span> · No GPS Signal`;
+        }
+        if (kpiGpsSpeed) {
+          kpiGpsSpeed.textContent = `-- km/h · No Fix`;
+        }
+      }
+    });
+
+    // Watch browser geolocation if user has enabled location permissions
+    if (navigator.geolocation) {
+      navigator.geolocation.watchPosition(
+        (pos) => {
+          if (piBridge && typeof piBridge.updateLiveLocation === 'function') {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            const acc = pos.coords.accuracy || 15;
+            const hdg = pos.coords.heading || 0;
+            const spd = pos.coords.speed ? (pos.coords.speed * 3.6) : 0;
+            piBridge.updateLiveLocation(lat, lng, acc, hdg, spd);
+          }
+        },
+        (err) => {
+          console.warn('[Geolocation] Disabled or signal error:', err.message);
+          if (piBridge && typeof piBridge.clearLocation === 'function') {
+            piBridge.clearLocation();
+          }
+        },
+        { enableHighAccuracy: true, timeout: 8000, maximumAge: 0 }
+      );
+    }
+
+    let isStreaming = true;
+
+    // Toggle dynamic display of live hardware packets
+    function toggleStream() {
+      isStreaming = !isStreaming;
+      const btn = document.getElementById('streamToggleBtn');
+      const txt = document.getElementById('streamStatusText');
+      if (isStreaming) {
+        btn.classList.add('active');
+        txt.innerHTML = '⚡ <strong>Hardware Pi Bridge:</strong> Live LoRa Ingestion Active';
+      } else {
+        btn.classList.remove('active');
+        txt.innerText = 'LoRa Ingestion: Paused';
+      }
+    }
+
+    // Dynamic AI query handler inspecting live data currently received for that node
+    function consultAIForNodeId(nodeId, nodeName) {
+      const nodeData = (piBridge && piBridge.lastLoRa) ? piBridge.lastLoRa[nodeId] : null;
+
+      const liveWater = (nodeData && nodeData.water_level !== undefined) ? `${nodeData.water_level} m` : 'live reading';
+      const liveRate = (nodeData && nodeData.hourly_rise_rate !== undefined) ? `${nodeData.hourly_rise_rate} m/h` : 'live rate';
+      const liveStatus = (nodeData && nodeData.status) ? nodeData.status : 'ACTIVE';
+
+      ai2.launchTacticalHUD(`Evaluate real-time LoRa sensor telemetry from ${nodeName}: Current water level is ${liveWater} with surge rate ${liveRate} (Status: ${liveStatus}). Based on Kamareddy grid elevation, advise immediate convoy routing, wading limits, and citizen early warning broadcasts.`);
+    }
+
+    window.consultAIForNodeId = consultAIForNodeId;
+    window.toggleStream = toggleStream;
+
+    // AI Overlay Handlers
+    function openAI(initialPrompt) {
+      const overlay = document.getElementById('rescueAIOverlay');
+      overlay.style.display = 'flex';
+      const input = document.getElementById('rescueAIInput');
+      if (initialPrompt) {
+        input.value = initialPrompt;
+        sendRescueAIMessage();
+      } else {
+        input.focus();
+      }
+    }
+
+    function closeRescueAI() {
+      document.getElementById('rescueAIOverlay').style.display = 'none';
+    }
+
+    function quickRescuePrompt(text) {
+      const input = document.getElementById('rescueAIInput');
+      if (!input) return;
+      input.value = text;
+      sendRescueAIMessage();
+    }
+    window.quickRescuePrompt = quickRescuePrompt;
+
+    function appendRescueMsg(text, role, options = []) {
+      const msgs = document.getElementById('rescueMessages');
+      if (!msgs) return;
+      if (role === 'user') {
+        const div = document.createElement('div');
+        div.style.cssText = `align-self:flex-end;background:linear-gradient(135deg,rgba(239,68,68,0.22),rgba(185,28,28,0.14));border:1px solid rgba(239,68,68,0.4);padding:12px 16px;border-radius:16px 16px 4px 16px;max-width:82%;font-size:0.92rem;line-height:1.55;color:#f8fafc;`;
+        div.innerHTML = `<div style="font-size:0.75rem;font-weight:700;color:#fca5a5;margin-bottom:4px;text-transform:uppercase;">🧑‍🚒 Commander Directive</div><div>${text}</div>`;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+      } else {
+        const div = document.createElement('div');
+        div.style.cssText = `align-self:flex-start;background:rgba(15,23,42,0.85);border:1px solid rgba(56,189,248,0.28);padding:14px 18px;border-radius:16px 16px 16px 4px;max-width:88%;font-size:0.92rem;line-height:1.6;color:#e2e8f0;`;
+        
+        div.innerHTML = `<div style="font-size:0.75rem;font-weight:700;color:#38bdf8;margin-bottom:6px;display:flex;align-items:center;gap:6px;text-transform:uppercase;"><span>🛰️</span> Tactical Operations Advisory</div><div style="white-space:pre-wrap;">${text}</div>`;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+      }
+    }
+
+    async function sendRescueAIMessage() {
+      if (window.ai2 && window.ai2.isGenerating) return;
+      const input = document.getElementById('rescueAIInput');
+      if (!input) return;
+      const question = input.value.trim();
+      if (!question) return;
+      input.value = '';
+      appendRescueMsg(question, 'user');
+
+      const msgs = document.getElementById('rescueMessages');
+
+      // 1. Live token streaming with typewriter effect + Stop button
+      if (window.ai2 && typeof window.ai2.streamTacticalAdvisory === 'function') {
+        try {
+          await window.ai2.streamTacticalAdvisory(msgs, question);
+          return;
+        } catch (streamErr) {
+          if (window.ai2 && typeof window.ai2.setGeneratingState === 'function') {
+            window.ai2.setGeneratingState(false);
+          }
+          console.warn('[AI2 Stream Error, falling back to analyze]:', streamErr);
+        }
+      }
+
+      // 2. Fallback to /api/ai/analyze
+      if (window.ai2 && typeof window.ai2.setGeneratingState === 'function') {
+        window.ai2.setGeneratingState(true);
+      }
+      try {
+        const res = await fetch('http://127.0.0.1:8088/api/ai/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: question })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const text = data.tactical_advisory || data.text || '';
+          const options = data.suggested_options || data.options || [];
+          appendRescueMsg(text, 'ai', options);
+        } else {
+          appendRescueMsg('⚠️ Qwen AI returned an error. Ensure pi_hardware_bridge.py is running.', 'ai');
+        }
+      } catch (err) {
+        appendRescueMsg('⚠️ Could not reach Qwen AI backend. Ensure pi_hardware_bridge.py is running on port 8088.', 'ai');
+      } finally {
+        if (window.ai2 && typeof window.ai2.setGeneratingState === 'function') {
+          window.ai2.setGeneratingState(false);
+        }
+      }
+    }
+
+    window.openAI = openAI;
+    window.closeRescueAI = closeRescueAI;
+    window.toggleStream = toggleStream;
+    window.consultAIForNodeId = consultAIForNodeId;
+
+    const overlayEl = document.getElementById('rescueAIOverlay');
+    if (overlayEl) {
+      overlayEl.addEventListener('click', (e) => {
+        if (e.target === overlayEl) closeRescueAI();
+      });
+    }
+
+    const sendBtn = document.getElementById('rescueAISendBtn');
+    if (sendBtn) sendBtn.addEventListener('click', sendRescueAIMessage);
+
+    const inputEl = document.getElementById('rescueAIInput');
+    if (inputEl) {
+      inputEl.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          sendRescueAIMessage();
+        }
+      });
+    }
+
+    // Start feed
+    startStream();
+
+  </script>
+
+</body>
+
+</html>

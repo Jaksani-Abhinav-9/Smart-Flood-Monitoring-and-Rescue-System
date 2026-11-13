@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FloodGuard LoRa Telemetry Packet Schema",
+  "description": "Standardized data interchange schema for LoRa IoT sensor telemetry received by Rescue Kit tablet. Field statuses explicitly delineate current prototype capability vs planned hardware expansions.",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "device_id",
+    "timestamp",
+    "water_level",
+    "battery",
+    "signal_strength",
+    "sensor_status"
+  ],
+  "properties": {
+    "device_id": {
+      "type": "string",
+      "description": "Unique identifier of the LoRa transmitter node (e.g., KMR_NODE_01).",
+      "hardware_status": "available",
+      "example": "KMR_NODE_01"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 UTC timestamp of reading capture or millisecond tick from node RTC.",
+      "hardware_status": "available",
+      "example": "2026-09-06T18:30:00Z"
+    },
+    "data_freshness_seconds": {
+      "type": "integer",
+      "description": "Elapsed seconds since last verified radio packet packet received at tablet receiver.",
+      "hardware_status": "available",
+      "example": 14
+    },
+    "location": {
+      "type": "object",
+      "description": "Geographic coordinates of sensor installation point.",
+      "hardware_status": "planned",
+      "properties": {
+        "latitude": { "type": "number", "minimum": -90, "maximum": 90 },
+        "longitude": { "type": "number", "minimum": -180, "maximum": 180 },
+        "elevation_m": { "type": "number" },
+        "fix_type": { "type": "string", "enum": ["NO_FIX", "2D_FIX", "3D_FIX", "STATIC_CONFIG"] }
+      },
+      "required": ["latitude", "longitude"]
+    },
+    "water_level": {
+      "type": "object",
+      "description": "Ultrasonic distance converted to absolute water depth from datum/bed.",
+      "hardware_status": "available",
+      "properties": {
+        "value": { "type": ["number", "null"], "description": "Depth in meters. Null if sensor echo timeout or invalid." },
+        "unit": { "type": "string", "enum": ["meter", "centimeter"], "default": "meter" },
+        "sensor_reading_raw_cm": { "type": ["number", "null"] },
+        "valid": { "type": "boolean" }
+      },
+      "required": ["value", "unit", "valid"]
+    },
+    "water_level_trend": {
+      "type": "string",
+      "description": "Calculated rate of change over the last 15-30 minutes.",
+      "hardware_status": "available",
+      "enum": ["rapidly_rising", "rising", "steady", "falling", "rapidly_falling", "unknown"],
+      "example": "rising"
+    },
+    "rate_of_rise_m_hr": {
+      "type": ["number", "null"],
+      "description": "Calculated slope in meters per hour.",
+      "hardware_status": "available",
+      "example": 0.25
+    },
+    "flow": {
+      "type": "object",
+      "description": "Stream current velocity. Planned future sensor extension.",
+      "hardware_status": "planned",
+      "properties": {
+        "value": { "type": ["number", "null"], "description": "Velocity in meters per second (m/s)." },
+        "unit": { "type": "string", "enum": ["m/s", "knots"], "default": "m/s" },
+        "measurement_method": { "type": "string", "enum": ["radar_surface", "acoustic_doppler", "submerged_impeller", "uncalibrated_estimate"] }
+      }
+    },
+    "rainfall": {
+      "type": "object",
+      "description": "Tipping-bucket precipitation gauge reading.",
+      "hardware_status": "planned",
+      "properties": {
+        "value": { "type": ["number", "null"], "description": "Rainfall in millimeters." },
+        "unit": { "type": "string", "enum": ["mm"], "default": "mm" },
+        "interval_minutes": { "type": "integer", "default": 60 }
+      }
+    },
+    "temperature": {
+      "type": "object",
+      "description": "Ambient environmental / water temperature.",
+      "hardware_status": "optional",
+      "properties": {
+        "ambient_c": { "type": ["number", "null"] },
+        "water_c": { "type": ["number", "null"] }
+      }
+    },
+    "battery": {
+      "type": "object",
+      "description": "Node power subsystem status.",
+      "hardware_status": "available",
+      "properties": {
+        "percentage": { "type": ["integer", "null"], "minimum": 0, "maximum": 100 },
+        "voltage_v": { "type": ["number", "null"] },
+        "is_charging": { "type": "boolean" }
+      },
+      "required": ["percentage"]
+    },
+    "signal_strength": {
+      "type": "object",
+      "description": "LoRa physical layer transmission quality at the Rescue Kit receiver.",
+      "hardware_status": "available",
+      "properties": {
+        "rssi_dbm": { "type": "integer", "description": "Received Signal Strength Indicator in dBm. Good: > -90 dBm, Poor: < -115 dBm." },
+        "snr_db": { "type": "number", "description": "Signal-to-Noise Ratio in dB. Clean: > 5 dB, Corrupted limit: < -10 dB." },
+        "packet_loss_pct": { "type": "number" },
+        "frequency_mhz": { "type": "number", "default": 868.0 }
+      },
+      "required": ["rssi_dbm", "snr_db"]
+    },
+    "sensor_status": {
+      "type": "string",
+      "description": "Operational health evaluation of the telemetry link.",
+      "hardware_status": "available",
+      "enum": ["OK", "STALE", "OFFLINE", "DEGRADED", "CORRUPTED", "CALIBRATION_REQUIRED"],
+      "example": "OK"
+    },
+    "simulation_flag": {
+      "type": "boolean",
+      "description": "STRICT FLAG: Set to TRUE if generated for test/mock drills; FALSE for operational field hardware. Simulated data must never be treated as real.",
+      "hardware_status": "available",
+      "default": false
+    }
+  }
+}

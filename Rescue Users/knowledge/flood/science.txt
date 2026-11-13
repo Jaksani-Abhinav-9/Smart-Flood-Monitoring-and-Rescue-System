@@ -1,0 +1,29 @@
+==============================================================================
+FLOOD RESCUE SYSTEM - FLOOD SCIENCE, HYDROLOGY & RISK SCALES
+Understanding Water Dynamics, Warning Levels & Kamareddy Regional Hydrology
+==============================================================================
+
+1. TYPES OF FLOODS AND PHYSICAL CHARACTERISTICS
+- Flash Floods: High-velocity torrents occurring within 3 to 6 hours of intense rainfall, cloudbursts, or sudden dam releases. Flash floods carry massive kinetic energy, boulders, uprooted trees, and debris, capable of tearing down bridges and concrete boundary walls.
+- Riverine (Fluvial) Floods: Occur when continuous heavy seasonal monsoon precipitation over river catchments exceeds normal river channel capacity. Water rises gradually over hours or days, inundating extensive floodplains.
+- Urban Drainage Floods: Result from high-intensity cloudbursts falling on impervious concrete and asphalt surfaces where storm drain networks are overwhelmed or blocked by sediment and solid waste. Water accumulates rapidly in underpasses, basements, and sunken ring roads.
+- Dam Sluice Release Floods: Controlled or emergency releases from upstream reservoirs (e.g. Nizam Sagar reservoir or Pocharam dam) into downstream riverbeds. Even when local rain has ceased, water levels downstream can surge dramatically within 1 to 2 hours of gate operation.
+
+2. HYDROLOGICAL WATER DEPTH & HYDRODYNAMIC FORCE PRINCIPLES
+Water exerts immense hydrostatic and hydrodynamic pressure against obstacles:
+- 6 Inches (15 cm): Swiftly moving water reaches an adult's shins, generating enough lateral drag force to overcome human footing and sweep a walking person downstream into storm drains or deep pools.
+- 12 Inches (30 cm): Water reaches the underside of passenger car chassis. The buoyant force displaces vehicle weight (approx. 1,500 kg of water displaced), causing tires to lose traction with the roadbed. The vehicle will pivot and float sideways into deeper currents.
+- 24 Inches (60 cm): Sufficient buoyant and current force to lift and sweep away heavy sport utility vehicles (SUVs), 4x4 trucks, ambulances, and commercial delivery vans.
+- Flow Velocity Hazard: Doubling water velocity quadruples the structural force exerted against walls, bridge piers, and buildings. Moving water at just 9 km/h (2.5 m/s) exerts force comparable to gale-force hurricane winds.
+
+3. CENTRAL WATER COMMISSION (CWC) & IMD WARNING TIERS
+- Normal (Green): River water level below warning limit. No immediate inundation risk. Routine monitoring active.
+- Alert Level (Yellow): Water level within 1.0 meter below warning limit. Low-lying agricultural bunds may be submerged. Citizens should monitor alerts on FloodGuard.
+- Warning Level (Orange): Water level reaches or breaches the official Warning Level. Riverbanks overtopping. Transport across low causeways prohibited. Evacuation preparations active.
+- Danger Level (Red): Water level crosses the official Danger Line or Highest Flood Level (HFL). Major residential inundation, road severance, and structural risks. Mandatory evacuation implemented.
+
+4. REGIONAL HYDROLOGY: KAMAREDDY DISTRICT CLUSTER
+Kamareddy district lies within the Godavari river basin and is characterized by a network of seasonal streams, medium irrigation tanks (cheruvus), and proximity to the Nizam Sagar Reservoir and Pocharam Wildlife Sanctuary catchment:
+- Low-lying vulnerable sectors include neighborhoods along seasonal nallas, drainage channels feeding towards Devanpally, and peripheral colonies around low lake bunds.
+- During intense monsoon depressions (Bay of Bengal low-pressure systems), localized precipitation exceeding 100 mm within 24 hours causes rapid runoff in town sectors with limited slope gradient, creating localized waterlogging in market areas, bus station approaches, and low railway underbridges.
+- Real-time IoT sensor nodes and rain-gauge stations deployed across Kamareddy grids feed live water depth data directly into the FloodGuard central monitoring system to compute early warning probabilities.

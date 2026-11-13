@@ -1,0 +1,73 @@
+- **  title: 'Buy Me Millions Coffee',** (`buy-me-coffee`):   description:
+- **  title: 'Code Block',** (`code-block`):   description:
+- **  title: 'Code Tabs',** (`code-tabs`):   description:
+- **  title: 'Creative Buttons',** (`buttons`):   description:
+- **  title: 'Masonry Grid',** (`masonary-grid`):   description:
+- **Accordion** (`accordion`): A flexible multi-expand accordion component with smooth animations and customizable styling. Built with React, TypeScript, and Tailwind CSS 
+- **Animated Beam** (`animated-beam`): An animated beam of light component that travels along a path with smooth animations. Perfect for showcasing website integration features, c
+- **Animated Dialog** (`dialog`): An animated dialog component powered by Framer Motion, featuring smooth transitions and interactive visual effects for modal windows. Perfec
+- **Animated FAQs** (`faqs`): Animated FAQs component powered by Framer Motion, featuring smooth transitions and interactive effects for expanding and collapsing answers.
+- **Animated Footer** (`footers`): An animated footer component with scrolling and mousemove effects, enhancing visual engagement through interactive user interactions. Featur
+- **Animated Globe** (`globe`): An interactive 3D animated globe component built with the Cobe library, featuring customizable styling and smooth rotations. Perfect for cre
+- **Animated Range Slider** (`range-slider`):   description:
+- **Animated Tabs** (`tabs`):   description:
+- **Background Blocks** (`blocks`): A fully customizable grid component with active blocks for creating interactive layouts and dynamic backgrounds. Features responsive grid sy
+- **Blur Vignette Effect** (`blur-vignette`): Apple Vision Pro-inspired blur-sm vignette effect for creating stunning visual overlays. Apply beautiful blur-sm effects to images, videos, 
+- **CSS Infinity Brand** (`infinity-brand`): A Tailwind CSS infinity brand scroll effect component featuring continuous brand logo animations and seamless infinite scrolling. Perfect fo
+- **Clip-Path Image** (`clip-path`): An advanced image component with custom SVG and CSS clip-path effects, creating unique shapes and dynamic visual transformations. Features r
+- **Code Tabs** (`code-tabs-mdx`): Tabbed code snippets component with multi-language support and syntax highlighting for React applications. Perfect for documentation, tutori
+- **Color Picker** (`color-picker`): An interactive color picker component built with React Colorful, featuring RGB, HSV, and hex color support. Includes color panel selection, 
+- **Datetime Picker** (`datetime-picker`): A comprehensive datetime picker component built on top of shadcn-ui with no additional libraries required. Features date and time selection,
+- **Directional Drawer** (`directional-drawer`):   description:
+- **Drag Items** (`drag-items`): A draggable item component powered by Framer Motion, enabling smooth and interactive drag-and-drop functionality with fluid animations. Perf
+- **File Upload** (`file-upload`): A comprehensive file upload component built on top of shadcn-ui with no additional libraries required. Features drag-and-drop functionality,
+- **Framer Motion Carousel** (`framer-carousel`): A carousel component powered by Framer Motion, featuring smooth animations and seamless transitions for an engaging slide experience. Perfec
+- **Gallery Modal** (`gallery-modal`): A Framer Motion gallery modal component with images that open in an interactive modal on click, offering a smooth and immersive viewing expe
+- **Gradient Border** (`gradient-border`): A versatile gradient border component with rounded-sm corners that can be applied to any div or text element. Enhances content with colorful
+- **Grid Showcase** (`grid`): A comprehensive grid component showcasing a variety of UI components as examples, demonstrating modern layout and design possibilities. Feat
+- **Horizontal Scroll** (`horizontal-scroll`): A horizontal scroll component powered by Framer Motion with smoothly transitioning active background that animates seamlessly from one tab t
+- **Hover Cards** (`hover-cards`): Interactive hover cards component with various hover animations and engaging visual effects on mouseover. Features smooth transitions, creat
+- **Image Accordion** (`image-accordions`): A dynamic image accordion component built with Tailwind CSS that expands to reveal images and accompanying content, providing an interactive
+- **Image Mousetrail** (`image-mousetrail`): An interactive image mousetrail component where the image responds dynamically to cursor movement, creating a visually engaging interaction.
+- **Image Reveal** (`image-reveal`): An interactive image reveal component where images appear and follow the cursor when hovering over any div element. Features smooth cursor t
+- **Image Ripple Effect** (`image-ripple-effect`): An animated image ripple effect component built with React-Three-Fiber, featuring stunning 3D ripple animations and WebGL-powered visual eff
+- **Image Tabs** (`image-tabs`): An animated tabs component with image navigation and FAQ-style content switching, where users navigate through images and content using smoo
+- **Interactive Carousel** (`carousel`): An interactive carousel component built with Embla Carousel that visually highlights selected items with smooth sliding background transitio
+- **Linear Card** (`linear-modal`): A Linear-inspired animated card component powered by Framer Motion that mimics the Linear app's hero section card opening effect. Features s
+- **Liquid Glass** (`liquid-glass`): A modern liquid glass component with glassmorphism effects featuring frosted glass aesthetics, backdrop blur, transparency, and smooth anima
+- **Liquid Gradient** (`liquid-gradient`): A Liquid Gradient component with animated gradient borders and rounded-sm corners. Features colorful, stylish edges and hover effects that e
+- **Mac Genie Effect** (`mac-genie`): A stunning macOS-style dock with realistic genie effect animations that mimics the iconic minimize/maximize animations from macOS. Features 
+- **Magnified Docs** (`magnified-doc`):   description:
+- **Marquee** (`marquee`): A modern marquee component supporting infinite scrolling for seamless display of text, images, and videos. Features smooth animations, custo
+- **Media Modals** (`media-modal`): A Framer Motion media modal component that opens images and videos with smooth animations. Features elegant transitions, responsive design, 
+- **Mesh Gradients** (`mesh-gradients`): Animated mesh gradients for developers. Features customizable colors, speed controls, and interactive animations.
+- **Motion Drawer** (`motion-drawer`):   description:
+- **Motion Number** (`motion-number`):   description:
+- **Multi Selector** (`multi-selector`):   description:
+- **Noise Effect** (`noise`):   description:
+- **Password Input** (`password`): A comprehensive password input component with show/hide eye toggle and real-time validation. Features password strength checker, visual feed
+- **Phone Input** (`phone-input`):   description:
+- **Product Cards** (`product-cards`):   description:
+- **Progressive Carousel ** (`progressive-carousel`):   description:
+- **R3F Blob** (`r3f-blob`):   description:
+- **Randomized Text Effect** (`randomized-text-effect`):   description:
+- **Responsive Header** (`responsive-header`):   description:
+- **Responsive Modal** (`responsive-modal`):   description:
+- **SVG Image Masking** (`image-masking`): Creative SVG image masking component with various custom shapes, adding unique and artistic effects to images through SVG cutouts and masks.
+- **Scroll Animation** (`scroll-animation`):   description:
+- **Scroll Text Marquee** (`scroll-text-marquee`):   description:
+- **Scroll Text** (`scroll-text`):   description:
+- **Shimmer Loader** (`shimmer-loader`): An animated shimmer loader component with customizable labels, icons, and progress indicators. Features smooth shimmer effects, token counte
+- **Smooth Scroll** (`smooth-scroll`):   description:
+- **Sparkles Title** (`sparkles-title`):   description:
+- **Sparkles** (`sparkles`):   description:
+- **Spotlight Cards** (`spotlight-cards`): Interactive spotlight cards component with dynamic mouse-following effects, featuring proximity spotlight, hover focus, and cursor flow grad
+- **Stacking Card** (`stacking-card`):   description:
+- **Sticky Scroll** (`sticky-scroll`):   description:
+- **Swapy** (`swapy`):   description:
+- **Tags Input** (`tags-input`):   description:
+- **Terminal UI** (`terminal-ui`): A sophisticated terminal-style intro sequence component that combines shimmer loaders and typewriter effects to create authentic console exp
+- **Timeline Animation** (`timeline-animation`):   description:
+- **Tree Code Viewer** (`tree-code-viewer`): Interactive file tree viewer with multi-file code display and syntax highlighting for React applications. Perfect for documentation, code ex
+- **Type Writer** (`type-writer`): An interactive typewriter effect component that animates text character by character with customizable typing speed. Features smooth charact
+- **Video Masking** (`video-masking`):   description:

@@ -1,0 +1,16 @@
+node_modules/
+.venv/
+.env
+__pycache__/
+*.pyc
+Lib/
+Scripts/
+**/tiles/
+**/runtime/
+**/*.safetensors
+**/*.gguf
+**/*.whl
+**/*.onnx
+**/*.bin
+**/*.pt
+**/*.pth

@@ -1,0 +1,23 @@
+{
+  "format": "gguf_embedded",
+  "tokenizer_model": "gpt2",
+  "pre_tokenizer": "qwen2",
+  "vocab_size": 151936,
+  "merges_count": 151387,
+  "bos_token_id": 151643,
+  "eos_token_id": 151645,
+  "pad_token_id": 151643,
+  "bos_token": "<|endoftext|>",
+  "eos_token": "<|im_end|>",
+  "pad_token": "<|endoftext|>",
+  "im_start_token": "<|im_start|>",
+  "im_end_token": "<|im_end|>",
+  "stop_tokens": [
+    "<|im_end|>",
+    "<|endoftext|>"
+  ],
+  "add_bos_token": false,
+  "add_eos_token": false,
+  "chat_format": "chatml",
+  "chat_template_file": "gguf_chat_template.jinja"
+}

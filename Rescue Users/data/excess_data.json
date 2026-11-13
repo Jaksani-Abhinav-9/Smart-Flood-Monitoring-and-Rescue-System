@@ -1,0 +1,287 @@
+{
+  "version": "2.1.0",
+  "name": "FloodGuard Tactical Rescue Operations Reference Knowledge Base",
+  "description": "Comprehensive field conditions, rapid tactical SOPs, hydrological thresholds, Kamareddy GeoJSON grid sectors, and real-time situational telemetry for rescue teams and AI decision-support.",
+  "sectors": {
+    "district": "Kamareddy",
+    "state": "Telangana",
+    "center_coordinates": {"lat": 18.3252, "lon": 78.3276},
+    "geojson_source": "data/kmr_grids_ai_latlon.geojson",
+    "total_grids": 713,
+    "elevation_datum_mean_m": 526.82,
+    "command_nodes": ["DEOC Kamareddy (1077)", "NDRF 10th Battalion", "SDRF Telangana", "MRO Office", "Kamareddy Fire & Police"]
+  },
+  "kamareddy_key_sectors": [
+    {
+      "name": "Lingapur Sector",
+      "grid_id": 396,
+      "approx_lat": 18.3408,
+      "approx_lon": 78.3322,
+      "mean_elevation_m": 530.88,
+      "risk_level": "Moderate Risk",
+      "safety_score": 54.1,
+      "terrain_note": "Canal backflow corridor. NH44 underpass experiences rapid submergence >2.5m. Heavy transformer concentration along northern rural distribution lines."
+    },
+    {
+      "name": "Tekriyal Sector",
+      "grid_id": 315,
+      "approx_lat": 18.3109,
+      "approx_lon": 78.3214,
+      "mean_elevation_m": 519.35,
+      "risk_level": "High Risk",
+      "safety_score": 42.5,
+      "terrain_note": "Low-lying river confluence approach. Swiftwater velocities exceed 1.5 m/s during upstream dam gate opening. Key elevated bypass route runs along eastern ridge."
+    },
+    {
+      "name": "Adloor / Adlur Sector",
+      "grid_id": 478,
+      "approx_lat": 18.3057,
+      "approx_lon": 78.3413,
+      "mean_elevation_m": 509.28,
+      "risk_level": "Very High Risk",
+      "safety_score": 32.5,
+      "terrain_note": "Critical low basin (17.5m below district average). High probability of deep inundation (>2.0m) and residential isolation. Priority evacuation zone."
+    },
+    {
+      "name": "Sarampally Sector",
+      "grid_id": 613,
+      "approx_lat": 18.3141,
+      "approx_lon": 78.3582,
+      "mean_elevation_m": 502.17,
+      "risk_level": "Very High Risk",
+      "safety_score": 25.4,
+      "terrain_note": "Lowest elevation drainage basin in municipal grid network (502m). Severe flood entrapment risk; immediate amphibious/motorized boat deployment required."
+    },
+    {
+      "name": "Chinna Mallareddy Sector",
+      "grid_id": 255,
+      "approx_lat": 18.3487,
+      "approx_lon": 78.3151,
+      "mean_elevation_m": 529.64,
+      "risk_level": "Moderate Risk",
+      "safety_score": 52.8,
+      "terrain_note": "Agricultural drainage runoff zone. Flash flood sheet flows across rural unpaved access roads."
+    },
+    {
+      "name": "Devanpally Sector",
+      "grid_id": 583,
+      "approx_lat": 18.3330,
+      "approx_lon": 78.3551,
+      "mean_elevation_m": 518.90,
+      "risk_level": "High Risk",
+      "safety_score": 42.1,
+      "terrain_note": "Eastern stormwater discharge zone. Culvert suction hazards and rapid stream pooling."
+    },
+    {
+      "name": "Rameshwarpally Sector",
+      "grid_id": 389,
+      "approx_lat": 18.2975,
+      "approx_lon": 78.3301,
+      "mean_elevation_m": 518.78,
+      "risk_level": "High Risk",
+      "safety_score": 42.0,
+      "terrain_note": "Southern perimeter approach road subject to silt washouts and submerged bridge decks."
+    },
+    {
+      "name": "Kamareddy Town / Bus Stand",
+      "grid_id": 356,
+      "approx_lat": 18.3245,
+      "approx_lon": 78.3268,
+      "mean_elevation_m": 528.34,
+      "risk_level": "Moderate Risk",
+      "safety_score": 51.5,
+      "terrain_note": "Urban core and command staging hub. Commercial street waterlogging; primary access to Municipal Relief Camp."
+    },
+    {
+      "name": "Kamareddy Railway Station / Substation",
+      "grid_id": 472,
+      "approx_lat": 18.3220,
+      "approx_lon": 78.3410,
+      "mean_elevation_m": 522.08,
+      "risk_level": "High Risk",
+      "safety_score": 45.3,
+      "terrain_note": "Critical electrical feeder node (33/11kV). High risk of electrical step potentials if trackbed floods."
+    }
+  ],
+  "real_time_telemetry_config": {
+    "provider": "Open-Meteo Weather API",
+    "endpoint": "https://api.open-meteo.com/v1/forecast?latitude=18.3252&longitude=78.3276&current=temperature_2m,relative_humidity_2m,precipitation,rain,weather_code,wind_speed_10m&hourly=precipitation,rain&forecast_days=1",
+    "refresh_interval_ms": 300000,
+    "fallback_telemetry": {
+      "temperature_c": 25.5,
+      "relative_humidity_pct": 80,
+      "precipitation_mm_hr": 0.0,
+      "wind_speed_kmh": 6.4,
+      "source": "Open-Meteo Kamareddy Station"
+    }
+  },
+  "response_format_directive": {
+    "rule": "Every response must be short, covering key operational points, and ground real data from kmr_grids_ai_latlon.geojson and live web telemetry.",
+    "max_words_single_threat": 85,
+    "max_words_multi_threat": 125,
+    "sections": [
+      "📍 AREA TELEMETRY: Real grid ID, elevation in meters, risk level, and safety score from GeoJSON.",
+      "🌦️ REAL-TIME SITUATION: Live weather, rain/precipitation rate from web, and water surge trend.",
+      "✅ DO NOW: Immediate tactical priority action.",
+      "⚠️ AVOID: Critical life-safety violation or hazard to shun.",
+      "📞 ESCALATE: Direct emergency contacts (DEOC 1077, Power 1912, Ambulance 108)."
+    ]
+  },
+  "protocols": [
+    {
+      "id": "PROT_ELEC_01",
+      "category": "Submerged Electrical & Grid Hazards",
+      "keywords": ["transformer", "buzz", "spark", "electric", "power line", "wire", "electrocution", "shock", "substation", "utility pole", "voltage", "current"],
+      "threat_level": "CRITICAL - IMMEDIATE LETHAL RISK",
+      "condition_summary": "Water conducting lethal electrical voltage gradients (step potential and touch potential) from partially submerged 11kV transformers or buzzing power poles.",
+      "rapid_action": {
+        "action": "HALT 15M OUT: Cease all forward rescue craft advance immediately. Maintain a strict 15-meter (50-foot) clearance perimeter from the buzzing or sparking pole.",
+        "do_not": "DO NOT allow boat hull, aluminum oars, or wet ropes to enter the boiling/sparking water radius.",
+        "escalate": "Call 1912 (Telangana Electricity Emergency) & DEOC Kamareddy (1077 / 08468-220050) for immediate feeder breaker trip."
+      },
+      "tactical_sop": [
+        "HALT 15M OUT: Cease forward craft movement immediately; maintain a 15m (50ft) standoff perimeter from energized water.",
+        "EMERGENCY SUBSTATION TRIP: Request immediate forced feeder breaker cutoff via Electricity Emergency (1912) and DEOC (1077).",
+        "REROUTE CRAFT: Reverse course and proceed via non-energized access route."
+      ]
+    },
+    {
+      "id": "PROT_BOAT_02",
+      "category": "Rescue Boat Overload, Crowd Control & Capsizing Prevention",
+      "keywords": ["boat", "overload", "capacity", "insist", "passenger", "weight", "inflatable", "irb", "rush", "capsiz", "crowd", "people", "limit", "luggage"],
+      "threat_level": "HIGH - CAPSIZING HAZARD",
+      "condition_summary": "Panicked crowd rushing an inflatable rescue craft (IRB), risking sudden listing, pontoon tearing, and overturning in turbulent flood surge.",
+      "rapid_action": {
+        "action": "ENFORCE 8-PERSON LIMIT: Firmly state: 'Boat is at maximum safe capacity. We are returning immediately on Rotation #2.' Prioritize non-ambulatory, infants, and pregnant mothers.",
+        "do_not": "DO NOT allow citizens to board with heavy suitcases or push past the 8-passenger (750 kg) payload limit.",
+        "escalate": "Leave tethered lifejackets/buoys with remaining group; dispatch secondary support craft via LoRa Channel 16."
+      },
+      "tactical_sop": [
+        "ENFORCE 8-PERSON LIMIT: Inflatable boats capsize instantly in surge if overloaded past 8 persons (750 kg).",
+        "TRIAGE BOARDING: Evacuate non-ambulatory patients, infants, pregnant mothers, and elderly first.",
+        "LEAVE LIFELINES: Anchor a certified lifeline tether with remaining citizens while ferrying rotation #1 to safety."
+      ]
+    },
+    {
+      "id": "PROT_HYDRO_03",
+      "category": "Hydrological Surge, Swiftwater Velocity & Rising Water",
+      "keywords": ["velocity", "rise", "rate", "depth", "threshold", "water level", "m/s", "cm", "flow", "current", "speed", "1.85m", "0.45"],
+      "threat_level": "HIGH - SWIFTWATER HAZARD",
+      "condition_summary": "Water depth exceeding 1.5m and velocity exceeding 1.0 m/s with rapid rise rates (>0.3 m/h) creating deadly suction near culverts.",
+      "rapid_action": {
+        "action": "SWIFTWATER PROTOCOL: Mandatory motorized craft, Type V PFDs, and throw bags. Prohibit foot wading (15 cm knocks adult; 60 cm sweeps heavy trucks).",
+        "do_not": "DO NOT attempt foot wading or allow small unpowered dinghies in water flowing faster than 1.0 m/s.",
+        "escalate": "Sound evacuation sirens for downstream grids if water rise rate exceeds 0.3 meters/hour."
+      },
+      "tactical_sop": [
+        "SWIFTWATER GEAR: Mandate Type V rescue vests, helmets, and throw ropes for all field personnel.",
+        "PROHIBIT WADING: Water moving > 1.0 m/s sweeps rescuers off feet; use motorized rescue craft exclusively.",
+        "MANDATORY EVACUATION: Depths > 1.5m or rise rates > 0.3m/h trigger automatic mandatory evacuation orders."
+      ]
+    },
+    {
+      "id": "PROT_HEALTH_07",
+      "category": "Medical Triage, Infant Hypothermia, Contamination & Snakebites",
+      "keywords": ["infant", "hypothermia", "baby", "snake", "bite", "venom", "disease", "leptospirosis", "infection", "wound", "drink", "cold", "shiver"],
+      "threat_level": "HIGH - LIFE-CRITICAL MEDICAL",
+      "condition_summary": "Trapped hypothermic infants, contaminated water causing leptospirosis, and displaced venomous snakes seeking dry high ground.",
+      "rapid_action": {
+        "action": "HYPOTHERMIA ACTION: Strip wet garments immediately. Place infant skin-to-skin against parent's chest and wrap in dry thermal space blanket.",
+        "do_not": "DO NOT apply ice, tourniquets, or cuts to snakebites; do NOT allow drinking of unboiled or chemically contaminated floodwater.",
+        "escalate": "Dial 108 for Emergency Ambulance with Polyvalent Anti-Snake Venom (ASV) and pediatric warming gear."
+      },
+      "tactical_sop": [
+        "INFANT HYPOTHERMIA: Wet garments cause fatal hypothermia within 30 mins; strip wet clothes and wrap skin-to-skin in dry blankets.",
+        "SNAKEBITE CARE: Immobilize bitten limb below heart level; rush to Kamareddy District Hospital for ASV (Dial 108).",
+        "WATER CONTAMINATION: Raw floodwater contains toxic runoff and Leptospirosis; distribute sealed bottled water only."
+      ]
+    },
+    {
+      "id": "PROT_INFRA_06",
+      "category": "Bridge Scour, Roadway Washouts & Lingapur Canal Hazard",
+      "keywords": ["bridge", "scour", "road", "collapse", "washout", "nh44", "underpass", "lingapur", "bypass", "culvert", "pier"],
+      "threat_level": "CRITICAL - COLLAPSE RISK",
+      "condition_summary": "Turbulent floodwater scouring sediment around bridge piers and pooling deeply (>2.5m) in low-lying NH44 underpasses.",
+      "rapid_action": {
+        "action": "REROUTE VIA BYPASS: Strictly avoid low-lying NH44 underpasses near Lingapur canal. Direct all logistical trucks, ambulances, and buses via the Tekriyal elevated bypass.",
+        "do_not": "DO NOT drive across water-covered bridges without structural scour clearance; water hides washed-out roadbeds.",
+        "escalate": "Alert Traffic Police & Highways Authority to erect hard physical barricades at NH44 Lingapur approach."
+      },
+      "tactical_sop": [
+        "AVOID NH44 UNDERPASS: Water depth exceeds 2.5m at Lingapur canal underpass; all vehicles must use Tekriyal bypass.",
+        "SOUNDING POLES: Rescue craft must use sounding poles over flooded streets to detect open manholes and washed-out asphalt.",
+        "BRIDGE CLOSURES: Any bridge with water touching superstructure girder level must be closed immediately."
+      ]
+    },
+    {
+      "id": "PROT_SHELTER_08",
+      "category": "Kamareddy Municipal Evacuation Shelters & Relief Camps",
+      "keywords": ["shelter", "evacuation", "camp", "relief", "capacity", "kamareddy", "safe location", "school", "college", "mro", "where to evacuate"],
+      "threat_level": "LOGISTICAL RESOURCE MANAGEMENT",
+      "condition_summary": "Matching displaced flood evacuees to nearest elevated shelters safely outside the 100-year flood inundation zone.",
+      "rapid_action": {
+        "action": "PRIMARY SHELTER: Kamareddy Municipal High School Relief Camp (Cap: 250 | Generator, clean water, medical tent). Secondary: Govt Degree College Hall (Cap: 350).",
+        "do_not": "DO NOT route evacuees through flooded low-ground roads; use elevated MG Road approach.",
+        "escalate": "Coordinate bed roll distribution and child nutrition rations through MRO Relief Cell."
+      },
+      "tactical_sop": [
+        "MUNICIPAL HIGH SCHOOL: Primary shelter on MG Road | Capacity: 250 occupants | 24/7 power backup & first-aid triage.",
+        "GOVT DEGREE COLLEGE: Secondary high-elevation concrete structure | Capacity: 350 occupants.",
+        "MRO COMMUNITY SHELTER: Staging post | Capacity: 150 occupants | Direct radio link to DEOC Control."
+      ]
+    },
+    {
+      "id": "PROT_VEHICLE_10",
+      "category": "Submerged Vehicles, Stalled Cars & Trapped Motorists",
+      "keywords": ["car", "vehicle", "stall", "stuck in car", "submerged car", "door", "window", "suv", "drown in car", "drive in water"],
+      "threat_level": "CRITICAL - TRAPPED DROWNING HAZARD",
+      "condition_summary": "Vehicle swept into canal or stalled in rising water with electrical windows failed and door pressure locked by outside water level.",
+      "rapid_action": {
+        "action": "VEHICLE ESCAPE: Unbuckle seatbelts. Remove seat headrest and jam metal prongs into lower corner of side window to shatter glass (windshields will not break). Climb onto roof.",
+        "do_not": "DO NOT waste energy trying to push doors open until water equalizes inside and outside; do NOT remain inside a sinking car.",
+        "escalate": "Call 112 / 108 immediately and blow whistle to guide approaching rescue boats."
+      },
+      "tactical_sop": [
+        "SHATTER SIDE WINDOW: Use metal prongs of seat headrest against corner of side glass.",
+        "ROOFTOP STAGING: Evacuate passengers onto car roof immediately; never remain inside a sinking cabin.",
+        "TETHER LINE: Rescue boat must secure a tether line to the car frame to prevent current sweeping it away."
+      ]
+    },
+    {
+      "id": "PROT_TEL_04",
+      "category": "LoRa Sensor Telemetry, Mesh Degradation & Battery Depletion",
+      "keywords": ["telemetry", "packet", "rssi", "snr", "battery", "lora", "mesh", "repeater", "dropout", "rf", "sensor", "node", "309"],
+      "threat_level": "MODERATE - COMMUNICATIONS VULNERABILITY",
+      "condition_summary": "Rain fade and muddy floodwater reflections causing RF packet attenuation and low sensor battery (<20%).",
+      "rapid_action": {
+        "action": "TELEMETRY LINK FIX: If RSSI < -110 dBm, re-hop packet through elevated Kamareddy repeater. Throttle reporting interval to 60s to conserve dying battery.",
+        "do_not": "DO NOT disregard sudden sensor dropouts during heavy rain; treat silent nodes as potential flood surge zones.",
+        "escalate": "Dispatch mobile drone repeater or ground survey team to verify sector status."
+      },
+      "tactical_sop": [
+        "PACKET HOPPING: Re-route degraded LoRa packets (RSSI < -110 dBm) through elevated repeater towers.",
+        "BATTERY SAVING: Throttle depleted nodes (< 20%) to 60-second power-save transmissions.",
+        "PHYSICAL RECON: Treat sudden telemetry blackouts as high-risk surge alerts."
+      ]
+    },
+    {
+      "id": "PROT_CONTACT_09",
+      "category": "Emergency Command, Dispatch & Helpline Directory",
+      "keywords": ["contact", "helpline", "number", "call", "ndrf", "deoc", "police", "ambulance", "control room", "112", "108", "1077", "1912"],
+      "threat_level": "ESSENTIAL DIRECTORY",
+      "condition_summary": "Immediate official contact numbers for rapid disaster escalation and emergency agency dispatch.",
+      "rapid_action": {
+        "action": "EMERGENCY CONTACTS: 112 (National Emergency), 108 (Disaster Ambulance), 1077 (DEOC Kamareddy: 08468-220050), 1912 (Power Cutoff), 011-23438084 (NDRF HQ).",
+        "do_not": "DO NOT delay calling 1912 during electrical water emergencies or 108 for hypothermia/snakebite trauma.",
+        "escalate": "Broadcast situation report on VHF Channel 16 for inter-agency coordination."
+      },
+      "tactical_sop": [
+        "112 : Unified National Emergency Response Center",
+        "108 : Disaster Ambulance & Emergency Paramedic",
+        "1077 : Kamareddy District Emergency Operations Centre (08468-220050)",
+        "1912 : Telangana Electricity Emergency Substation Cutoff",
+        "011-23438084 : NDRF 24x7 National HQ Control Room"
+      ]
+    }
+  ]
+}

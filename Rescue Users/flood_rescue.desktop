@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=FloodGuard Rescue Terminal
+Comment=Autonomous Flood Rescue & LoRa Telemetry Command Terminal
+Exec=/bin/bash -c "DIR=\"$HOME/vs/Rescue Users\"; if [ ! -d \"$DIR\" ]; then DIR=\"/home/pi/vs/Rescue Users\"; fi; cd \"$DIR\" && ./start_pi_app.sh"
+Icon=applications-utilities
+Terminal=true
+Type=Application
+Categories=Utility;Application;
+StartupNotify=true

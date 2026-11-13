@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22" fill="none">
+  <defs>
+    <linearGradient id="sosGrad" x1="5" y1="4" x2="19" y2="20" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#fca5a5"/>
+      <stop offset="100%" stop-color="#ef4444"/>
+    </linearGradient>
+  </defs>
+  <!-- Siren Base -->
+  <path d="M4 19h16v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 20.5V19z" fill="#991b1b" stroke="#f87171" stroke-width="1.2"/>
+  <!-- Siren Dome -->
+  <path d="M6 19c0-6 2.7-11 6-11s6 5 6 11H6z" fill="rgba(239, 68, 68, 0.35)" stroke="url(#sosGrad)" stroke-width="1.8" stroke-linejoin="round"/>
+  <!-- Beacon core highlight -->
+  <circle cx="12" cy="14" r="2.5" fill="#fef2f2"/>
+  <!-- Flash Rays -->
+  <line x1="12" y1="3" x2="12" y2="5" stroke="#fca5a5" stroke-width="2" stroke-linecap="round"/>
+  <line x1="4.5" y1="6" x2="6.2" y2="7.5" stroke="#fca5a5" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="19.5" y1="6" x2="17.8" y2="7.5" stroke="#fca5a5" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

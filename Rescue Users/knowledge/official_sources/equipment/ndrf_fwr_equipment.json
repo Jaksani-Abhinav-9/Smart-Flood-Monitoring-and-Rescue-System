@@ -1,0 +1,47 @@
+{
+  "source_metadata": {
+    "organization": "National Disaster Response Force (NDRF), MHA, Govt. of India",
+    "title": "Flood Water Rescue (FWR) Technical Equipment Specifications and Safety Guidelines",
+    "url": "https://ndrf.gov.in/equipment/fwr",
+    "version": "NDRF-EQ-SPEC-FWR-2022",
+    "category": "Rescue Equipment & PPE",
+    "data_type": "STATIC_KNOWLEDGE",
+    "verification_status": "VERIFIED_OFFICIAL"
+  },
+  "equipment_catalog": {
+    "IRB_Inflatable_Rescue_Boat": {
+      "material": "Heavy-duty Hypalon / Neoprene fabric (1100-1670 dtex) resistant to punctures, UV, and hydrocarbons.",
+      "chambers": "Multi-compartment inflatable buoyancy tubes (typically 3 to 5 independent air chambers plus inflatable keel).",
+      "rated_capacity": "6 to 10 persons max (including 2 crew members). Overloading leads to center-of-gravity elevation and rollover.",
+      "working_pressure": "0.20 to 0.25 bar (2.9 to 3.6 psi). Requires pressure gauge monitoring in hot ambient temperatures."
+    },
+    "OBM_Outboard_Motor": {
+      "power_ratings": [
+        "30 HP",
+        "40 HP 2-Stroke / 4-Stroke Marine Engines"
+      ],
+      "propeller_guard": "MANDATORY stainless steel circular shroud surrounding propeller to prevent blade strikes on victims and debris entrapment.",
+      "fuel_system": "24L portable fuel tank with primer bulb and emergency kill switch tether (dead-man switch).",
+      "cooling": "Raw water impeller cooling. Must ensure intake screens are clear of silt and mud."
+    },
+    "PFD_Personal_Flotation_Devices": {
+      "rescuer_pfd": "Type V Swiftwater Rescue Vest with minimum 22 lbs (98 N to 150 N) buoyancy, quick-release chest harness, and cowtail tether.",
+      "survivor_pfd": "Type III / Keyhole buoyant life vest with reflective SOLAS tape, whistle, and secure crotch straps for children."
+    },
+    "Water_Rescue_Helmets": {
+      "specification": "EN 1385 certified water rescue helmets with drainage vents and closed-cell foam liner (non-water-absorbing)."
+    },
+    "Life_Buoys_and_Throw_Bags": {
+      "throw_bags": "20m to 25m floating polypropylene rope (8mm to 10mm, minimum 9 kN breaking strength) in high-visibility cordura bag.",
+      "life_buoy": "SOLAS approved 30-inch rigid ring buoy with 30m grab line; Remote-controlled motorized lifebuoy for rapid victim reach."
+    },
+    "Environmental_Sensors": {
+      "flow_meter": "Hydro-acoustic or mechanical impellor flow meter to measure stream velocity before deploying personnel.",
+      "wind_meter": "Handheld anemometer to gauge cross-winds for boat stability and helicopter LZ safety."
+    },
+    "Underwater_Comms_and_Lighting": {
+      "comms": "Full-face mask wireless ultrasonic underwater transceivers for dive teams.",
+      "torches": "IP68 waterproof LED dive lights (minimum 1000 lumens) and chemical lightsticks (cyalume) for night victim tagging."
+    }
+  }
+}

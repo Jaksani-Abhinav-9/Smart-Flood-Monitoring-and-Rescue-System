@@ -1,0 +1,41 @@
+==============================================================================
+FLOOD RESCUE SYSTEM - CITIZEN FLOOD FIRST AID & MEDICAL SURVIVAL
+Emergency Medical Protocols for Drowning, Hypothermia, Wounds & Disinfection
+==============================================================================
+
+1. RESUSCITATION FOR NEAR-DROWNING VICTIMS (CPR IN FLOOD CONDITIONS)
+When a victim is pulled unconscious from floodwaters:
+- Check for Responsiveness: Tap both shoulders firmly and shout loudly, "Are you okay?".
+- Call for Help: Shout to a bystander to call 108 immediately and state, "Unconscious drowning victim needing advanced life support".
+- Position Victim: Place the victim flat on a firm, dry surface. If the victim has water in the mouth or vomit, roll them gently onto their side (recovery position) for 5 seconds to drain the airway, then roll back onto their back.
+- Begin Rescue Breaths: Unlike standard cardiac arrest, drowning is primarily a respiratory failure (hypoxic arrest). Tilt the head gently, lift the chin, pinch the nose, and deliver 2 to 5 rescue breaths (each lasting 1 second, observing chest rise).
+- Chest Compressions: If the victim remains unresponsive with no normal breathing, begin chest compressions immediately. Place the heel of one hand in the center of the chest (lower half of sternum), interlock the other hand, and compress hard and fast: 100 to 120 compressions per minute at a depth of 5 to 6 cm (2 to 2.4 inches).
+- Cycle: Continue at a ratio of 30 chest compressions followed by 2 rescue breaths until spontaneous breathing resumes, an AED arrives, or emergency paramedics (108) take over.
+
+2. EMERGENCY WATER PURIFICATION & SAFE DRINKING METHODS
+Never consume unpurified water in a flood zone; floodwater contains lethal concentrations of cholera, salmonella, E. coli, and rotavirus. Use one of these verified methods:
+- Boiling (Gold Standard): Bring clean or strained water to a vigorous rolling boil for at least 1 full minute (3 minutes at high altitude). Allow it to cool naturally in a clean covered container.
+- Chemical Disinfection (Chlorine / Halazone Tablets): Use 1 chlorine purification tablet (such as Aquatabs, typically containing 67 mg NaDCC) per 4 to 5 liters of clear water. Stir vigorously and wait at least 30 minutes before drinking. If water is murky, double the dosage or pre-filter through clean cloth.
+- Household Bleach Disinfection: If tablets are unavailable, add 2 drops of unscented household chlorine bleach (5-6% sodium hypochlorite) per 1 liter of clear water. Shake well and let stand for 30 minutes. The water should have a faint chlorine smell; if not, repeat with 2 drops and wait another 15 minutes.
+- Alum (Phitkari) Sedimentation: For extremely turbid or muddy water, swirl a small piece of clean alum in the bucket for 15 to 20 seconds. Let the bucket settle undisturbed for 2 to 3 hours until mud settles completely to the bottom, then pour the clear upper water through a clean cotton cloth into a separate vessel and boil or chlorinate it.
+
+3. HYPOTHERMIA MANAGEMENT & ACTIVE REWARMING
+Hypothermia occurs when core body temperature drops below 35°C (95°F) due to cold rain, wind, and immersion in floodwater:
+- Signs: Uncontrollable shivering, slurred speech, clumsy hands, pale or bluish skin, mental confusion, and lethargy.
+- Treatment: Immediately remove soaked clothing and replace with dry blankets, sleeping bags, towels, or plastic vapor barriers.
+- Gentle Rewarming: Focus on warming the core (chest, neck, groin) first using warm dry towels, heated water bottles wrapped in cloth, or skin-to-skin contact with a healthy companion.
+- Never Rub or Massage: Never vigorously massage or rub the victim's arms or legs; doing so forces cold, acidic blood from the extremities into the core, potentially triggering lethal ventricular fibrillation.
+- If Conscious: Give warm, sweetened non-alcoholic drinks (tea, glucose water, warm broth). Never give caffeinated energy drinks, alcohol, or hot liquids to an unconscious victim.
+
+4. FLOOD WOUND CARE & INFECTION CONTROL (PREVENTING LEPTOSPIROSIS)
+Floodwater carries Leptospira bacteria excreted in the urine of infected rodents. It enters through microscopic cuts, mucous membranes, or waterlogged skin:
+- Immediate Cleaning: Wash any wound, puncture, scrape, or abrasion immediately with clean, boiled, or bottled water and soap for at least 3 to 5 minutes.
+- Disinfection: Apply povidone-iodine (Betadine) or 70% isopropyl alcohol antiseptic. Cover completely with a sterile waterproof adhesive bandage.
+- Medical Alert: If you develop sudden high fever, severe calf muscle tenderness, red eyes (conjunctival suffusion), yellowing of skin/eyes, or dark urine 3 to 14 days after wading in floodwater, seek immediate emergency medical care at a hospital and notify the doctor of floodwater exposure for Doxycycline therapy.
+
+5. SNAKEBITE EMERGENCY PROTOCOL
+In rural and flooded areas, venomous snakebites from Russell's vipers, saw-scaled vipers, common kraits, and spectacled cobras increase drastically:
+- DO NOT: Do NOT cut the wound with a blade, do NOT suck venom with your mouth or suction devices, do NOT apply ice packs, and do NOT tie a tight tourniquet that cuts off arterial blood flow (which causes gangrene and limb loss).
+- DO: Calm the patient and keep them completely still. Minimize all physical exertion.
+- Immobilize the Bitten Limb: Keep the bitten extremity below heart level. Splint the limb with a stick or rolled newspaper and wrap a broad crepe bandage firmly (as you would for a sprained ankle) from fingers/toes up towards the armpit/groin. You should still be able to slip one finger under the bandage.
+- Immediate Transport: Transport the victim to the nearest government hospital (District Hospital Kamareddy or DMHO Community Health Centre) where polyvalent Anti-Snake Venom (ASV) is stocked. Dial 108 for emergency ambulance transport.

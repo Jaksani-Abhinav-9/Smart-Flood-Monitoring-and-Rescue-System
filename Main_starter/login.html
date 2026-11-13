@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Flood Rescue Guidance System</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="welcome-bg">
+
+<div class="auth-card">
+  <h2 class="auth-title">Login</h2>
+  <p class="auth-subtitle">Enter your details to continue</p>
+
+  <button class="btn google-btn" onclick="loginWithGoogle()" type="button">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google logo">
+    Continue with Google
+  </button>
+
+  <div class="auth-status hidden" id="authStatus">Logging in...</div>
+
+  <div class="auth-divider">or</div>
+
+  <!-- EMAIL -->
+  <div class="input-group">
+    <label class="input-label" for="loginEmail">Email Address</label>
+    <div class="input-row">
+      <span class="input-icon">📧</span>
+      <input
+        type="email"
+        id="loginEmail"
+        placeholder="Enter your email"
+        class="auth-input"
+        autocomplete="username"
+      >
+    </div>
+  </div>
+   <!-- PASSWORD -->
+  <div class="input-group">
+    <label class="input-label" for="loginPassword">Password</label>
+    <div class="input-row">
+      <span class="input-icon">🔒</span>
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Enter your password"
+        class="auth-input"
+        autocomplete="current-password"
+      >
+      <span class="password-toggle" onclick="togglePassword('loginPassword', this)" aria-hidden="true">👁️</span>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label class="input-label" for="loginLocation">Current Location</label>
+    <div class="input-row">
+      <span class="input-icon">📍</span>
+      <button
+        type="button"
+        class="location-btn"
+        onclick="getLoginLocation()"
+      >
+        Detect Current Location
+      </button>
+    </div>
+  </div>
+
+  <div class="location-card hidden" id="currentLocationCard">
+    <div class="location-card-header">📍 Current Location</div>
+    <div class="location-row"><span>Latitude</span><strong id="currentLat">—</strong></div>
+    <div class="location-row"><span>Longitude</span><strong id="currentLng">—</strong></div>
+    <div class="location-status"><span class="status-dot"></span> Location Verified</div>
+  </div>
+
+  <input type="hidden" id="loginLocation" value="">
+
+ 
+
+
+
+  <!-- LOGIN -->
+  <button class="auth-btn" onclick="login()">🔐 Login →</button>
+
+
+  <p class="auth-footer">
+    <a href="forgot-password.html">Forgot password?</a>
+  </p>
+
+  <p class="auth-footer">
+    Don’t have an account?
+    <a href="signup.html">Sign Up</a>
+  </p>
+
+  <p class="auth-footer">
+    ← <a href="index.html">Back to Welcome</a>
+  </p>
+
+</div>
+
+<!-- LOCATION SCRIPT -->
+<script>
+function getLoginLocation() {
+  const locInput = document.getElementById("loginLocation");
+  const statusCard = document.getElementById("currentLocationCard");
+  const latEl = document.getElementById("currentLat");
+  const lngEl = document.getElementById("currentLng");
+  const button = document.querySelector('.location-btn');
+
+  if (!navigator.geolocation) {
+    alert("Geolocation not supported");
+    return;
+  }
+
+  button.disabled = true;
+  button.textContent = '📍 Detecting location...';
+  latEl.textContent = 'Fetching...';
+  lngEl.textContent = 'Fetching...';
+  statusCard.classList.add('hidden');
+
+  navigator.geolocation.getCurrentPosition(
+    (pos) => {
+      const lat = pos.coords.latitude.toFixed(5);
+      const lon = pos.coords.longitude.toFixed(5);
+      locInput.value = `Lat: ${lat}, Lng: ${lon}`;
+      latEl.textContent = lat;
+      lngEl.textContent = lon;
+      statusCard.classList.remove('hidden');
+      button.disabled = false;
+      button.textContent = '📍 Detect Current Location';
+    },
+    () => {
+      button.disabled = false;
+      button.textContent = '📍 Detect Current Location';
+      statusCard.classList.add('hidden');
+      alert("Please allow location access");
+    }
+  );
+}
+</script>
+
+<!-- Firebase-authenticated login -->
+<script type="module">
+  import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+  import { getFirestore, doc, getDoc, setDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+  // Reuse the existing Firebase config (same as signup page)
+  const firebaseConfig = {
+    apiKey: "AIzaSyDDc8peb4i19Rku8smgr5BwLxt0WMB9Gjw",
+    authDomain: "flood-rescue-guide-ac3a8.firebaseapp.com",
+    projectId: "flood-rescue-guide-ac3a8",
+    storageBucket: "flood-rescue-guide-ac3a8.appspot.com",
+    messagingSenderId: "635830559756",
+    appId: "1:635830559756:web:xxxxxx"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  // Specialized Rescue Accounts list with passwords (loaded dynamically from Rescue Users/ids.json + fallback)
+  const defaultRescueAccounts = [
+    {
+      id: "rescue-01",
+      email: "rescue1@floodrescue.gov",
+      password: "rescue@gov",
+      name: "Rescue Team Alpha"
+    },
+    {
+      id: "rescue-02",
+      email: "rescue2@floodrescue.gov",
+      password: "rescue@gov",
+      name: "Rescue Team Bravo"
+    },
+    {
+      id: "rescue-03",
+      email: "commander@floodrescue.gov",
+      password: "rescue@gov",
+      name: "Rescue Commander"
+    },
+    {
+      id: "rescue-04",
+      email: "rescue@test.com",
+      password: "rescue@gov",
+      name: "Rescue Unit Special"
+    }
+  ];
+  let authorizedRescueAccounts = [...defaultRescueAccounts];
+
+  fetch('../Rescue Users/ids.json')
+    .then(res => res.json())
+    .then(data => {
+      if (data && Array.isArray(data.authorizedRescueAccounts)) {
+        authorizedRescueAccounts = data.authorizedRescueAccounts;
+      }
+    })
+    .catch(() => {});
+
+  function findRescueAccount(email, password) {
+    if (!email || !password) return null;
+    const cleanEmail = email.trim().toLowerCase();
+    return authorizedRescueAccounts.find(
+      acc => acc.email.toLowerCase() === cleanEmail && acc.password === password
+    ) || null;
+  }
+
+  function isRescueEmailOnly(email) {
+    if (!email) return false;
+    const cleanEmail = email.trim().toLowerCase();
+    return authorizedRescueAccounts.some(acc => acc.email.toLowerCase() === cleanEmail);
+  }
+
+  // UI elements
+  const loginButton = document.querySelector('.auth-btn');
+  const authStatus = document.getElementById('authStatus');
+
+  function showStatus(message, isError = false) {
+    authStatus.classList.remove('hidden');
+    authStatus.classList.add('visible');
+    authStatus.textContent = message;
+    authStatus.style.color = isError ? '#ff3333' : '';
+    authStatus.style.fontWeight = isError ? '600' : 'normal';
+  }
+
+  function clearStatus() {
+    authStatus.classList.add('hidden');
+    authStatus.classList.remove('visible');
+    authStatus.textContent = '';
+    authStatus.style.color = '';
+    authStatus.style.fontWeight = '';
+  }
+
+  function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@\"]+\.)+[^<>()[\]\\.,;:\s@\"]{2,})$/i;
+    return re.test(String(email).toLowerCase());
+  }
+
+  async function login() {
+    const email = document.getElementById('loginEmail').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const location = document.getElementById('loginLocation').value.trim();
+    if (!email) { showStatus('Please enter your email address.', true); return; }
+    if (!validateEmail(email)) { showStatus('Please enter a valid email address.', true); return; }
+    if (!password) { showStatus('Please enter your password.', true); return; }
+    if (!location) { showStatus('Please detect your current location before logging in.', true); return; }
+
+    loginButton.disabled = true;
+    showStatus('Verifying credentials...');
+
+    // 1. Check if user is attempting to login as an authorized Rescue Team
+    const rescueAccount = findRescueAccount(email, password);
+    if (rescueAccount) {
+      // Valid rescue credentials verified!
+      localStorage.setItem('userEmail', rescueAccount.email);
+      localStorage.setItem('userRole', 'rescue');
+      localStorage.setItem('userName', rescueAccount.name);
+      localStorage.setItem('loginLocation', location);
+      localStorage.setItem('bypassAuth', 'true');
+
+      // Try background Firebase authentication or user sync if account exists in Auth
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+      } catch (_) {}
+
+      showStatus(`Welcome, ${rescueAccount.name}! Accessing Rescue Command...`);
+      setTimeout(() => {
+        window.location.href = '../Rescue Users/home.html';
+      }, 800);
+      return;
+    }
+
+    // If an email matches a known rescue account but the password didn't match:
+    if (isRescueEmailOnly(email)) {
+      showStatus('Incorrect password for Rescue Command account.', true);
+      loginButton.disabled = false;
+      return;
+    }
+
+    // 2. Normal Citizen login path via Firebase
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const uid = userCredential.user.uid;
+
+      // Keep user doc synchronized in Firestore as citizen
+      try {
+        await setDoc(doc(db, 'users', uid), {
+          email: email,
+          role: 'citizen',
+          lastLogin: new Date()
+        }, { merge: true });
+      } catch (syncErr) {
+        console.warn('Profile sync note:', syncErr);
+      }
+
+      // Save session info
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userRole', 'citizen');
+      localStorage.setItem('loginLocation', location);
+      localStorage.removeItem('bypassAuth');
+
+      showStatus('Authenticated as Citizen — redirecting...');
+      setTimeout(() => { window.location.href = '../Citizen Users/home.html'; }, 900);
+
+    } catch (err) {
+      console.error(err);
+      loginButton.disabled = false;
+      // Map Firebase error codes to friendly messages
+      const code = err.code || '';
+      if (code === 'auth/user-not-found') showStatus('No account found with this email. Please create an account first.', true);
+      else if (code === 'auth/wrong-password') showStatus('Incorrect password. Please try again.', true);
+      else if (code === 'auth/invalid-email') showStatus('Please enter a valid email address.', true);
+      else if (code === 'auth/too-many-requests') showStatus('Too many failed attempts. Try again later.', true);
+      else if (code === 'auth/network-request-failed') showStatus('Network error. Check your connection and try again.', true);
+      else showStatus('Authentication failed. ' + (err.message || ''), true);
+    }
+  }
+
+  async function loginWithGoogle() {
+    const location = document.getElementById('loginLocation').value.trim();
+    if (!location) {
+      showStatus('Please detect your current location before logging in.', true);
+      return;
+    }
+
+    loginButton.disabled = true;
+    showStatus('Connecting to Google...');
+
+    try {
+      const provider = new GoogleAuthProvider();
+      const userCredential = await signInWithPopup(auth, provider);
+      const user = userCredential.user;
+      const uid = user.uid;
+
+      showStatus('Verifying account details...');
+
+      // Check if Google email is an authorized rescue email
+      const isRescue = isRescueEmailOnly(user.email);
+      const targetRole = isRescue ? 'rescue' : 'citizen';
+
+      try {
+        await setDoc(doc(db, 'users', uid), {
+          email: user.email,
+          role: targetRole,
+          lastLogin: new Date()
+        }, { merge: true });
+      } catch (syncErr) {
+        console.warn('Profile sync note:', syncErr);
+      }
+
+      // Save session info
+      localStorage.setItem('userEmail', user.email);
+      localStorage.setItem('userRole', targetRole);
+      localStorage.setItem('loginLocation', location);
+      if (isRescue) {
+        localStorage.setItem('bypassAuth', 'true');
+      } else {
+        localStorage.removeItem('bypassAuth');
+      }
+
+      showStatus(`Authenticated as ${isRescue ? 'Rescue Command Team' : 'Citizen'} — redirecting...`);
+      const targetDestination = isRescue ? '../Rescue Users/home.html' : '../Citizen Users/home.html';
+      setTimeout(() => { window.location.href = targetDestination; }, 900);
+
+    } catch (err) {
+      console.error(err);
+      loginButton.disabled = false;
+      const code = err.code || '';
+      if (code === 'auth/popup-closed-by-user') {
+        showStatus('Google sign-in popup was closed before completion.', true);
+      } else if (code === 'auth/cancelled-popup-request') {
+        showStatus('Google sign-in popup request cancelled.', true);
+      } else {
+        showStatus('Google authentication failed. ' + (err.message || ''), true);
+      }
+    }
+  }
+
+  // Expose login to global so button onclick still works
+  window.login = login;
+  window.loginWithGoogle = loginWithGoogle;
+
+  // Password visibility toggle exposed globally for the UI
+  window.togglePassword = function(inputId, btn) {
+    const el = document.getElementById(inputId);
+    if (!el) return;
+    if (el.type === 'password') {
+      el.type = 'text';
+      btn.textContent = '🙈';
+    } else {
+      el.type = 'password';
+      btn.textContent = '👁️';
+    }
+  };
+
+
+
+  // Redirect already-authenticated users away from login page
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // user is signed in — fetch role and redirect
+      getDoc(doc(db, 'users', user.uid)).then(snap => {
+        if (snap.exists()) {
+          const role = snap.data().role;
+          const roleMap = { 'citizen': '../Citizen Users/home.html', 'volunteer':'../Citizen Users/home.html', 'rescue':'../Rescue Users/home.html', 'admin':'../Rescue Users/home.html' };
+          if (role && roleMap[role]) window.location.href = roleMap[role];
+        }
+      }).catch(() => {});
+    }
+  });
+
+  /*
+    Auth-guard snippet for protected pages (copy into dashboard pages):
+
+    <script type="module">
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+      import { getAuth, onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js';
+      const firebaseConfig = { ... };
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      onAuthStateChanged(auth, user => {
+        if (!user) window.location.href = '/docs/login.html';
+      });
+    <\/script>
+  */
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "python.defaultInterpreterPath": "C:\\Program Files\\Python313\\python.exe",
+  "files.watcherExclude": {
+    "**/tiles/**": true,
+    "**/runtime/**": true,
+    "**/*.safetensors": true,
+    "**/*.gguf": true,
+    "**/*.whl": true,
+    "**/__pycache__/**": true,
+    "**/Lib/**": true,
+    "**/Scripts/**": true,
+    "**/.git/objects/**": true
+  },
+  "search.exclude": {
+    "**/tiles/**": true,
+    "**/runtime/**": true,
+    "**/*.safetensors": true,
+    "**/*.gguf": true,
+    "**/*.whl": true,
+    "**/__pycache__/**": true,
+    "**/Lib/**": true,
+    "**/Scripts/**": true,
+    "**/data/*.js": true,
+    "**/data/*.geojson": true
+  },
+  "files.exclude": {
+    "**/__pycache__": true
+  },
+  "liveServer.settings.port": 5501
+}
